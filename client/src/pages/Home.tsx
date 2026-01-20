@@ -304,21 +304,21 @@ export default function Home() {
                       <Phone className="w-5 h-5 text-primary mt-1" />
                       <div>
                         <p className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Phone</p>
-                        <p className="font-medium">+91 98765 43210</p>
+                        <p className="font-medium">8754020556</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
                       <Mail className="w-5 h-5 text-primary mt-1" />
                       <div>
                         <p className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Email</p>
-                        <p className="font-medium">contact@vynextgen.com</p>
+                        <p className="font-medium">vynextgentechnology@gmail.com</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
                       <MapPin className="w-5 h-5 text-primary mt-1" />
                       <div>
                         <p className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Location</p>
-                        <p className="font-medium">Hyderabad, India</p>
+                        <p className="font-medium">Karur, Tamil Nadu, India</p>
                       </div>
                     </div>
                   </div>
@@ -419,7 +419,7 @@ export default function Home() {
                         type="button" 
                         variant="outline" 
                         className="flex-1 rounded-full border-green-500 text-green-600 hover:bg-green-50 h-12 text-md"
-                        onClick={() => window.open("https://wa.me/919876543210", "_blank")}
+                        onClick={() => window.open("https://wa.me/918754020556", "_blank")}
                       >
                         <FaWhatsapp className="mr-2 h-5 w-5" /> Chat on WhatsApp
                       </Button>
