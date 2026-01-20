@@ -266,11 +266,13 @@ export default function Home() {
                 ))}
               </ul>
 
-              <ScrollLink to="contact" smooth={true} duration={500} offset={-80}>
-                <Button size="lg" className="rounded-full px-8 bg-white text-slate-900 hover:bg-slate-100 font-bold">
-                  Apply Now
-                </Button>
-              </ScrollLink>
+              <Button 
+                size="lg" 
+                className="rounded-full px-8 bg-white text-slate-900 hover:bg-slate-100 font-bold"
+                onClick={() => window.open("https://forms.gle/skWDWMTWipZjRf8U6", "_blank")}
+              >
+                Apply Now
+              </Button>
             </div>
             
             <div className="relative">
