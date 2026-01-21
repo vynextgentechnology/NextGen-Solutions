@@ -34,7 +34,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
 
-import heroImage from "@assets/generated_images/modern_it_startup_office_hero_image.png";
+import heroImage from "@assets/generated_images/ai-driven_it_industry_scene_for_hero_background.png";
 
 export default function Home() {
   const contactMutation = useContactMutation();
