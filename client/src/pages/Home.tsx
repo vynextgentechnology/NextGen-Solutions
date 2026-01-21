@@ -34,6 +34,8 @@ import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
 
+import heroImage from "@assets/generated_images/modern_it_startup_office_hero_image.png";
+
 export default function Home() {
   const contactMutation = useContactMutation();
 
@@ -75,6 +77,12 @@ export default function Home() {
       {/* Hero Section */}
       <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
+          <img 
+            src={heroImage} 
+            alt="Modern IT Office" 
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/40 to-slate-50" />
           <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-primary/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
         </div>
