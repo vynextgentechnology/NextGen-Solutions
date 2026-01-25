@@ -35,6 +35,7 @@ import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
 
 import heroImage from "@assets/generated_images/modern_ai_it_industry_scene_for_hero_background.png";
+import consultationImage from "/images/web_dev_consultation.png";
 
 export default function Home() {
   const contactMutation = useContactMutation();
@@ -136,19 +137,12 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="aspect-square rounded-3xl bg-slate-100 overflow-hidden relative z-10">
-                {/* Abstract visualization of technology since we don't have stock photos */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                  <div className="grid grid-cols-2 gap-4 opacity-10 rotate-12 scale-150">
-                     <Code2 size={120} />
-                     <Smartphone size={120} />
-                     <Lightbulb size={120} />
-                     <GraduationCap size={120} />
-                  </div>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
-                   <h3 className="text-3xl font-bold text-slate-800">Transforming Businesses Through Technology</h3>
-                </div>
+              <div className="aspect-video rounded-3xl bg-slate-100 overflow-hidden relative z-10 shadow-2xl">
+                <img 
+                  src={consultationImage} 
+                  alt="Web Development Consultation" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-primary/20 rounded-3xl -z-10" />
             </motion.div>
