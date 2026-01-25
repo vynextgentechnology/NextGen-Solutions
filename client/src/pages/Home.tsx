@@ -214,6 +214,13 @@ export default function Home() {
                 color: "bg-indigo-500"
               },
               {
+                icon: <Lightbulb className="h-8 w-8 text-white" />,
+                title: "Digital Services",
+                desc: "SEO, Digital Marketing, Social Media, and Google Ads management.",
+                color: "bg-orange-500",
+                link: "/digital-services"
+              },
+              {
                 icon: <Receipt className="h-8 w-8 text-white" />,
                 title: "Billing & GST",
                 desc: "Streamlined billing software solutions compliant with GST standards.",
