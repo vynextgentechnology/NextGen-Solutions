@@ -37,6 +37,8 @@ import { Link as ScrollLink } from "react-scroll";
 import heroImage from "@assets/generated_images/modern_ai_it_industry_scene_for_hero_background.png";
 import consultationImage from "/images/web_dev_consultation.png";
 
+import { Link as WouterLink } from "wouter";
+
 export default function Home() {
   const contactMutation = useContactMutation();
 
@@ -120,6 +122,11 @@ export default function Home() {
                     Explore Services
                   </Button>
                 </ScrollLink>
+                <ScrollLink to="contact" smooth={true} duration={500} offset={-80}>
+                  <Button variant="secondary" size="lg" className="rounded-full px-8 h-12 text-lg">
+                    Contact Us
+                  </Button>
+                </ScrollLink>
               </div>
             </motion.div>
           </div>
@@ -197,7 +204,8 @@ export default function Home() {
                 icon: <Code2 className="h-8 w-8 text-white" />,
                 title: "Web Development",
                 desc: "Custom websites that are fast, responsive, and SEO-friendly.",
-                color: "bg-blue-500"
+                color: "bg-blue-500",
+                link: "/web-development"
               },
               {
                 icon: <Smartphone className="h-8 w-8 text-white" />,
@@ -233,7 +241,14 @@ export default function Home() {
                   {service.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{service.desc}</p>
+                <p className="text-slate-600 leading-relaxed mb-6">{service.desc}</p>
+                {service.link && (
+                  <WouterLink href={service.link}>
+                    <Button variant="ghost" className="p-0 h-auto font-bold text-primary hover:bg-transparent hover:text-primary/80 group">
+                      Order Now <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </WouterLink>
+                )}
               </motion.div>
             ))}
           </motion.div>

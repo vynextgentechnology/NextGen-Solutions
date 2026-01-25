@@ -24,4 +24,16 @@ export const api = {
       },
     },
   },
+  orders: {
+    submit: {
+      method: 'POST' as const,
+      path: '/api/orders',
+      input: insertWebsiteOrderSchema,
+      responses: {
+        201: z.custom<typeof websiteOrders.$inferSelect>(),
+        400: errorSchemas.validation,
+        500: errorSchemas.internal,
+      },
+    },
+  },
 };

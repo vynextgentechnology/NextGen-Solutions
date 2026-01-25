@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import { Link as WouterLink, useLocation } from 'wouter';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +19,14 @@ export function Navigation() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', to: 'home' },
-    { name: 'About', to: 'about' },
-    { name: 'Services', to: 'services' },
-    { name: 'Internship', to: 'internship' },
+    { name: 'Home', to: 'home', type: 'scroll' },
+    { name: 'About', to: 'about', type: 'scroll' },
+    { name: 'Services', to: 'services', type: 'scroll' },
+    { name: 'Internship', to: 'internship', type: 'scroll' },
+    { name: 'Order Website', to: '/web-development', type: 'link' },
   ];
+
+  const isHome = location === '/';
 
   return (
     <header
@@ -30,35 +35,54 @@ export function Navigation() {
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {/* Logo */}
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30">
-            VY
+        <WouterLink href="/">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30">
+              VY
+            </div>
+            <span className={`text-xl font-bold tracking-tight text-slate-900`}>
+              NextGen Tech
+            </span>
           </div>
-          <span className={`text-xl font-bold tracking-tight ${isScrolled ? 'text-slate-900' : 'text-slate-900'}`}>
-            NextGen Tech
-          </span>
-        </div>
+        </WouterLink>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.to}
-              smooth={true}
-              duration={500}
-              offset={-80}
-              className="text-sm font-medium text-slate-600 hover:text-primary cursor-pointer transition-colors"
-            >
-              {link.name}
-            </Link>
+            link.type === 'scroll' && isHome ? (
+              <ScrollLink
+                key={link.name}
+                to={link.to}
+                smooth={true}
+                duration={500}
+                offset={-80}
+                className="text-sm font-medium text-slate-600 hover:text-primary cursor-pointer transition-colors"
+              >
+                {link.name}
+              </ScrollLink>
+            ) : (
+              <WouterLink
+                key={link.name}
+                href={link.type === 'scroll' ? `/#${link.to}` : link.to}
+                className="text-sm font-medium text-slate-600 hover:text-primary cursor-pointer transition-colors"
+              >
+                {link.name}
+              </WouterLink>
+            )
           ))}
-          <Link to="contact" smooth={true} duration={500} offset={-80}>
-            <Button className="rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
-              Contact Us
-            </Button>
-          </Link>
+          {isHome ? (
+            <ScrollLink to="contact" smooth={true} duration={500} offset={-80}>
+              <Button className="rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
+                Contact Us
+              </Button>
+            </ScrollLink>
+          ) : (
+            <WouterLink href="/#contact">
+              <Button className="rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
+                Contact Us
+              </Button>
+            </WouterLink>
+          )}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -81,27 +105,44 @@ export function Navigation() {
           >
             <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.to}
+                link.type === 'scroll' && isHome ? (
+                  <ScrollLink
+                    key={link.name}
+                    to={link.to}
+                    smooth={true}
+                    duration={500}
+                    offset={-80}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-lg font-medium text-slate-600 py-2 border-b border-slate-50 cursor-pointer"
+                  >
+                    {link.name}
+                  </ScrollLink>
+                ) : (
+                  <WouterLink
+                    key={link.name}
+                    href={link.type === 'scroll' ? `/#${link.to}` : link.to}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-lg font-medium text-slate-600 py-2 border-b border-slate-50 cursor-pointer"
+                  >
+                    {link.name}
+                  </WouterLink>
+                )
+              ))}
+              {isHome ? (
+                <ScrollLink
+                  to="contact"
                   smooth={true}
                   duration={500}
                   offset={-80}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-slate-600 py-2 border-b border-slate-50"
                 >
-                  {link.name}
-                </Link>
-              ))}
-              <Link
-                to="contact"
-                smooth={true}
-                duration={500}
-                offset={-80}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Button className="w-full mt-4">Contact Us</Button>
-              </Link>
+                  <Button className="w-full mt-4">Contact Us</Button>
+                </ScrollLink>
+              ) : (
+                <WouterLink href="/#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full mt-4">Contact Us</Button>
+                </WouterLink>
+              )}
             </div>
           </motion.div>
         )}
