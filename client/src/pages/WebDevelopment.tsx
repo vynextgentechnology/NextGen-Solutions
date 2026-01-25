@@ -180,7 +180,7 @@ export default function WebDevelopment() {
                       <FormItem>
                         <FormLabel>Required Pages</FormLabel>
                         <FormControl>
-                          <Input placeholder="Home, About, Services, Contact..." {...field} />
+                          <Input placeholder="Home, About, Services, Contact..." {...field} value={field.value ?? ""} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -194,7 +194,7 @@ export default function WebDevelopment() {
                       <FormItem>
                         <FormLabel>Any Reference Website</FormLabel>
                         <FormControl>
-                          <Input type="url" placeholder="https://example.com" {...field} />
+                          <Input type="url" placeholder="https://example.com" {...field} value={field.value ?? ""} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -212,6 +212,7 @@ export default function WebDevelopment() {
                             placeholder="Tell us more about your specific needs..." 
                             className="min-h-[120px] resize-none" 
                             {...field} 
+                            value={field.value ?? ""}
                           />
                         </FormControl>
                         <FormMessage />
