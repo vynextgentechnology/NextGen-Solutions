@@ -26,6 +26,34 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Navigation } from "@/components/Navigation";
 import { motion } from "framer-motion";
 
+const tnServices = [
+  "Community Certificate",
+  "Income Certificate",
+  "Nativity Certificate",
+  "OBC / BC / MBC Certificate",
+  "First Graduate Certificate",
+  "Legal Heir Certificate",
+  "Birth Certificate",
+  "Death Certificate",
+  "New Ration Card",
+  "Ration Card Correction",
+  "Ration Card Addition / Removal",
+  "Aadhar Update",
+  "Aadhar Linking",
+  "New PAN",
+  "PAN Correction",
+  "Voter ID Services",
+  "Driving Licence (DL) Services",
+  "Learner Licence (LL)",
+  "Passport Assistance",
+  "Patta / Chitta / Land Record Services",
+  "EB / TNEB Online Services",
+  "Pension Related Services",
+  "Government Scheme Application Assistance",
+  "Scholarship Application Support",
+  "Other Government Digital Services"
+];
+
 export default function DigitalServices() {
   const { toast } = useToast();
   
@@ -58,12 +86,14 @@ export default function DigitalServices() {
       email: "",
       phone: "",
       websiteType: "",
+      district: "",
+      taluk: "",
+      villageArea: "",
       additionalRequirements: "",
     },
   });
 
   const onSubmit = (data: InsertWebsiteOrder) => {
-    // Overriding websiteType to act as Service Type for this form
     orderMutation.mutate(data);
   };
 
@@ -80,9 +110,10 @@ export default function DigitalServices() {
         >
           <Card className="border-none shadow-xl shadow-slate-200/50">
             <CardHeader className="text-center pb-2">
-              <CardTitle className="text-3xl font-bold">Digital Services Request</CardTitle>
-              <CardDescription className="text-lg">
-                Select the digital services you need and we'll help you grow your business.
+              <CardTitle className="text-3xl font-bold text-primary">Tamil Nadu Government Digital Services Request</CardTitle>
+              <CardDescription className="text-lg mt-2">
+                We provide complete Tamil Nadu Government (TNeSevai / e-Sevai) digital services.
+                Submit your request and our team will assist you end-to-end.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -91,41 +122,12 @@ export default function DigitalServices() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <FormField
                       control={form.control}
-                      name="businessName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Business Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter business name" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
                       name="clientName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Client Name</FormLabel>
+                          <FormLabel>Applicant Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Enter your name" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email Address</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="email@example.com" {...field} />
+                            <Input placeholder="Enter applicant name" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -138,7 +140,63 @@ export default function DigitalServices() {
                         <FormItem>
                           <FormLabel>Mobile Number</FormLabel>
                           <FormControl>
-                            <Input placeholder="Enter phone number" {...field} />
+                            <Input placeholder="Enter mobile number" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email Address</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="email@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="district"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>District</FormLabel>
+                          <FormControl>
+                            <Input placeholder="District" {...field} value={field.value ?? ""} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="taluk"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Taluk</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Taluk" {...field} value={field.value ?? ""} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="villageArea"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Village / Area</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Village / Area" {...field} value={field.value ?? ""} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -158,11 +216,12 @@ export default function DigitalServices() {
                               <SelectValue placeholder="Select digital service" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
-                            <SelectItem value="SEO">SEO (Search Engine Optimization)</SelectItem>
-                            <SelectItem value="Digital Marketing">Digital Marketing</SelectItem>
-                            <SelectItem value="Social Media">Social Media Management</SelectItem>
-                            <SelectItem value="Google Ads">Google Ads</SelectItem>
+                          <SelectContent className="max-h-[300px]">
+                            {tnServices.map((service) => (
+                              <SelectItem key={service} value={service}>
+                                {service}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -175,10 +234,10 @@ export default function DigitalServices() {
                     name="additionalRequirements"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Business Goals / Requirements</FormLabel>
+                        <FormLabel>Additional Requirements / Explanation</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Tell us about your business goals and what you want to achieve..." 
+                            placeholder="Provide more details about your request..." 
                             className="min-h-[120px] resize-none" 
                             {...field} 
                             value={field.value ?? ""}
@@ -189,12 +248,27 @@ export default function DigitalServices() {
                     )}
                   />
 
+                  {/* Hidden field for businessName to satisfy validation if required */}
+                  <div className="hidden">
+                    <FormField
+                      control={form.control}
+                      name="businessName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input {...field} value="TN Government Services" />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
                   <Button 
                     type="submit" 
-                    className="w-full h-12 text-lg font-bold rounded-xl"
+                    className="w-full h-12 text-lg font-bold rounded-xl bg-primary hover:bg-primary/90"
                     disabled={orderMutation.isPending}
                   >
-                    {orderMutation.isPending ? "Submitting..." : "Submit Request"}
+                    {orderMutation.isPending ? "Submitting..." : "Submit Digital Service Request"}
                   </Button>
                 </form>
               </Form>

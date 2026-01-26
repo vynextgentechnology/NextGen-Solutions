@@ -21,6 +21,9 @@ export const websiteOrders = pgTable("website_orders", {
   requiredPages: text("required_pages"),
   referenceWebsite: text("reference_website"),
   additionalRequirements: text("additional_requirements"),
+  district: text("district"),
+  taluk: text("taluk"),
+  villageArea: text("village_area"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
