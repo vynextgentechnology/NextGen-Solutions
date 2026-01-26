@@ -20,7 +20,7 @@ export function Navigation() {
 
   const navLinks = [
     { name: 'Home', to: 'home', type: 'scroll' },
-    { name: 'About', to: 'about', type: 'scroll' },
+    { name: 'About', to: '/about', type: 'link' },
     { name: 'Services', to: 'services', type: 'scroll' },
     { name: 'Internship', to: 'internship', type: 'scroll' },
     { name: 'Order Website', to: '/web-development', type: 'link' },
