@@ -3,13 +3,6 @@ import { Navigation } from "@/components/Navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
-const team = [
-  "Yuvan Shankar Raja",
-  "Narenthar Prasath",
-  "Santhosh",
-  "Yeswanth SM"
-];
-
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -51,28 +44,29 @@ export default function About() {
           </div>
 
           <div className="text-center">
-            <h2 className="text-3xl font-bold mb-10">Our Professional Team</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {team.map((name, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Card className="hover-elevate transition-all duration-300 border-none shadow-md">
-                    <CardContent className="pt-6 pb-6 text-center">
-                      <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary/10">
-                        <AvatarFallback className="bg-primary/5 text-primary font-bold text-xl">
-                          {name.split(' ').map(n => n[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <h3 className="font-bold text-slate-900">{name}</h3>
-                      <p className="text-sm text-slate-500 mt-1">IT Professional</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+            <h2 className="text-3xl font-bold mb-10">Our Leadership</h2>
+            <div className="flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="w-full max-w-sm"
+              >
+                <Card className="hover-elevate transition-all duration-300 border-none shadow-md">
+                  <CardContent className="pt-8 pb-8 text-center">
+                    <Avatar className="w-24 h-24 mx-auto mb-6 border-2 border-primary/10">
+                      <AvatarFallback className="bg-primary/5 text-primary font-bold text-2xl">
+                        V
+                      </AvatarFallback>
+                    </Avatar>
+                    <h3 className="text-xl font-bold text-slate-900">Valiullah</h3>
+                    <p className="text-base text-slate-500 mt-2 font-medium">Founder & CEO</p>
+                    <p className="text-sm text-slate-400 mt-4 leading-relaxed">
+                      Leading the vision of VY NextGen Technology to provide innovative IT solutions and empower businesses globally.
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
           </div>
         </motion.div>
