@@ -56,11 +56,11 @@ export default function About() {
                   <CardContent className="pt-8 pb-8 text-center">
                     <Avatar className="w-24 h-24 mx-auto mb-6 border-2 border-primary/10">
                       <AvatarFallback className="bg-primary/5 text-primary font-bold text-2xl">
-                        V
+                        VY
                       </AvatarFallback>
                     </Avatar>
-                    <h3 className="text-xl font-bold text-slate-900">Valiullah</h3>
-                    <p className="text-base text-slate-500 mt-2 font-medium">Founder & CEO</p>
+                    <h3 className="text-xl font-bold text-slate-900">Founder & CEO</h3>
+                    <p className="text-base text-slate-500 mt-2 font-medium">VY NextGen Technology</p>
                     <p className="text-sm text-slate-400 mt-4 leading-relaxed">
                       Leading the vision of VY NextGen Technology to provide innovative IT solutions and empower businesses globally.
                     </p>

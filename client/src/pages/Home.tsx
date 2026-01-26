@@ -174,8 +174,8 @@ export default function Home() {
                   <CheckCircle2 />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900">Valiullah</p>
-                  <p className="text-sm text-slate-500">Founder & CEO</p>
+                  <p className="font-bold text-slate-900">Founder & CEO</p>
+                  <p className="text-sm text-slate-500">VY NextGen Technology</p>
                 </div>
               </div>
             </motion.div>
