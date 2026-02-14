@@ -97,29 +97,34 @@ export default function Home() {
               animate="visible"
               variants={fadeInUp}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 text-primary text-sm font-semibold mb-8 border border-primary/10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
-                Next-Generation IT Solutions
+                Innovating the Future
               </div>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight mb-8">
-                <span className="text-slate-900">Transforming Business</span><br />
-                <span className="text-gradient">Through Technology</span>
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                <span className="text-slate-900">VY NextGen</span>{" "}
+                <span className="text-gradient">Technology</span>
               </h1>
-              <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-                Professional software development, specialized digital services, and industry-leading internship programs tailored for the modern era.
+              <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Innovative IT Solutions for Your Business Growth. We transform ideas into digital reality with cutting-edge technology.
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <ScrollLink to="contact" smooth={true} duration={500} offset={-80}>
-                  <Button size="lg" className="rounded-xl px-10 h-14 text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-1 bg-primary hover:bg-primary/90">
-                    Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
+                  <Button size="lg" className="rounded-full px-8 h-12 text-lg shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-1">
+                    Get Started <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </ScrollLink>
                 <ScrollLink to="services" smooth={true} duration={500} offset={-80}>
-                  <Button variant="outline" size="lg" className="rounded-xl px-10 h-14 text-lg border-2 border-slate-200 hover:border-primary/20 hover:bg-slate-50 transition-all">
-                    View Our Services
+                  <Button variant="outline" size="lg" className="rounded-full px-8 h-12 text-lg border-2 hover:bg-slate-50">
+                    Explore Services
+                  </Button>
+                </ScrollLink>
+                <ScrollLink to="contact" smooth={true} duration={500} offset={-80}>
+                  <Button variant="secondary" size="lg" className="rounded-full px-8 h-12 text-lg">
+                    Contact Us
                   </Button>
                 </ScrollLink>
               </div>

@@ -9,29 +9,29 @@
   --font-display: 'Outfit', sans-serif;
 
   /* Professional Blue & White Theme */
-  --background: 0 0% 100%;        /* Pure white for cleaner look */
+  --background: 210 40% 98%;      /* Very light cool gray */
   --foreground: 222 47% 11%;      /* Dark navy text */
   
   --primary: 221 83% 53%;         /* Vivid Blue */
   --primary-foreground: 210 40% 98%;
   
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
   
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --muted: 214 32% 91%;
+  --muted-foreground: 215 16% 47%;
   
-  --accent: 221 83% 53%;          /* Consistent Blue */
+  --accent: 199 89% 48%;          /* Light Blue Accent */
   --accent-foreground: 210 40% 98%;
   
-  --destructive: 0 84.2% 60.2%;
+  --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
   
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
   --ring: 221 83% 53%;
   
-  --radius: 1rem;                /* More modern rounded corners */
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -46,16 +46,16 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    @apply font-black tracking-tight text-slate-900;
+    @apply font-bold tracking-tight text-slate-900;
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 font-black;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
   }
   
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-slate-200/50 shadow-2xl;
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
   }
 }
