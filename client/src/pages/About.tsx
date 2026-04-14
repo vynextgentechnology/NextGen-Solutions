@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Navigation } from "@/components/Navigation";
+import founderPhoto from "@assets/file_000000002dc871fa82cdcaab5c34b0ec_1776134862189.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -11,6 +12,7 @@ const leaders = [
     name: "Mr. Valiullah",
     role: "Founder & CEO",
     initials: "VU",
+    photo: founderPhoto,
     description:
       "Visionary leader driving VY NextGen Technology's mission to deliver innovative IT solutions and empower businesses across India and beyond.",
   },
@@ -189,16 +191,23 @@ function LeaderCard({
 
       {/* Avatar */}
       <div
-        className="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center text-2xl font-bold"
+        className="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden flex items-center justify-center text-2xl font-bold"
         style={{
+          border: "2px solid rgba(59,130,246,0.4)",
+          boxShadow: "0 4px 20px rgba(59,130,246,0.3)",
           background:
             "linear-gradient(135deg, rgba(59,130,246,0.8), rgba(99,102,241,0.8))",
-          border: "2px solid rgba(59,130,246,0.4)",
-          color: "#fff",
-          boxShadow: "0 4px 20px rgba(59,130,246,0.3)",
         }}
       >
-        {leader.initials}
+        {"photo" in leader && leader.photo ? (
+          <img
+            src={leader.photo}
+            alt={leader.name}
+            className="w-full h-full object-cover object-top"
+          />
+        ) : (
+          <span style={{ color: "#fff" }}>{leader.initials}</span>
+        )}
       </div>
 
       <h3 className="text-lg font-bold text-white mb-1">{leader.name}</h3>
