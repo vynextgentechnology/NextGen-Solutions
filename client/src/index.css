@@ -37,25 +37,116 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
     font-family: var(--font-sans);
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    @apply font-bold tracking-tight text-slate-900;
+    @apply font-bold tracking-tight;
   }
 }
 
+
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500;
   }
-  
+
+  .text-gradient-cyan {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500;
+  }
+
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+  }
+
+  .glass-card-dark {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  }
+
+  .tech-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+  }
+
+  .tech-grid-pattern-dark {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 50px -10px rgba(37, 99, 235, 0.25);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 50px -10px rgba(6, 182, 212, 0.25);
+  }
+
+  /* Zyvex-Inspired Animated Effects */
+  .border-lightning {
+    border: 2px solid rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 15px rgba(37, 99, 235, 0.15);
+    transition: all 0.3s ease;
+  }
+  .border-lightning:hover {
+    border-color: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.5), inset 0 0 25px rgba(59, 130, 246, 0.3);
+  }
+
+  .lightning-card {
+    position: relative;
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    background: rgba(15, 23, 42, 0.85);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lightning-card:hover {
+    border-color: rgba(6, 182, 212, 0.7);
+    box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.35), 0 0 15px rgba(59, 130, 246, 0.2);
   }
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.06); }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+

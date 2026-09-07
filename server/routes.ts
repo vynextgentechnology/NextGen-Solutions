@@ -3,6 +3,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import { sendEnquiryNotification, sendContactNotification } from "./mailer";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -13,6 +14,12 @@ export async function registerRoutes(
     try {
       const input = api.contact.submit.input.parse(req.body);
       const message = await storage.createContactMessage(input);
+      
+      // Dispatch email notification to vynextgentechnology@gmail.com
+      sendContactNotification(message).catch((mailErr) => {
+        console.error("[Mailer Error] Failed to send contact notification:", mailErr);
+      });
+
       res.status(201).json(message);
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -29,6 +36,12 @@ export async function registerRoutes(
     try {
       const input = api.orders.submit.input.parse(req.body);
       const order = await storage.createWebsiteOrder(input);
+
+      // Dispatch direct email notification to vynextgentechnology@gmail.com
+      sendEnquiryNotification(order).catch((mailErr) => {
+        console.error("[Mailer Error] Failed to send enquiry notification:", mailErr);
+      });
+
       res.status(201).json(order);
     } catch (err) {
       if (err instanceof z.ZodError) {
