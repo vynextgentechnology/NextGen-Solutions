@@ -56,8 +56,15 @@ import {
   FileCheck2,
   CalendarCheck,
   UserCheck,
+  ExternalLink,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+
+/**
+ * Official Google Form URL for VY NextGen Technologies Job Vacancies.
+ * Can be updated anytime when a new Google Form is created.
+ */
+export const GOOGLE_FORM_CAREERS_URL = "https://forms.gle/skWDWMTWipZjRf8U6";
 
 export interface JobListing {
   id: string;
@@ -334,7 +341,7 @@ const HIRING_PROCESS = [
   {
     step: "01",
     title: "Submit Profile",
-    desc: "Select your desired opening and submit your details or resume via our quick application portal.",
+    desc: "Select your desired opening and submit your details or resume via our quick application portal or Google Form.",
     icon: <Send className="w-5 h-5 text-blue-500" />
   },
   {
@@ -363,6 +370,10 @@ const FAQS = [
     a: "Absolutely! We actively hire ambitious freshers for our Junior Software Trainee and Associate Developer roles. If you have a solid understanding of fundamental programming, strong curiosity, and a willingness to learn, we would love to mentor you."
   },
   {
+    q: "Can I apply using Google Forms?",
+    a: "Yes! We provide both an instant on-site application form and an official Google Form. You can use whichever method is most convenient for you. Both go directly to our HR recruitment desk."
+  },
+  {
     q: "Where is the office located and are remote options available?",
     a: "Our headquarters and development center are situated in Karur, Tamil Nadu. We offer flexible hybrid schedules for experienced developers and designers, with on-site collaboration for trainees and billing specialists."
   },
@@ -371,12 +382,8 @@ const FAQS = [
     a: "Our recruitment desk reviews every application within 24 to 48 hours. If your skills match an open vacancy, our HR coordinator will contact you via WhatsApp or phone call."
   },
   {
-    q: "What is the interview process like?",
-    a: "We maintain a smooth, respectful, 3-step process: an initial alignment call, a practical domain test or portfolio walk-through, followed by a final chat with our Founders and CTO."
-  },
-  {
     q: "What if there is no role matching my exact profile right now?",
-    a: "You can still submit a general application! Select 'General Application' in the position dropdown, tell us what you do best, and our talent team will reach out when a suitable vacancy opens."
+    a: "You can still submit a general application! Select 'General Application' in the position dropdown or fill out the Google Form, tell us what you do best, and our talent team will reach out when a suitable vacancy opens."
   }
 ];
 
@@ -523,12 +530,12 @@ export default function Careers() {
               Join an energetic team of software architects, creative designers, and tech leaders in Karur, Tamil Nadu. Work on real-world web apps, billing engines, and high-impact digital solutions.
             </motion.p>
 
-            {/* CTAs */}
+            {/* CTAs with Google Form Button */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center gap-4 pt-4"
+              className="flex flex-wrap items-center justify-center gap-3.5 pt-4"
             >
               <a href="#vacancies">
                 <Button className="rounded-full px-7 h-12 text-sm sm:text-base font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 transition-all hover:-translate-y-0.5">
@@ -537,13 +544,27 @@ export default function Careers() {
                 </Button>
               </a>
 
+              <a
+                href={GOOGLE_FORM_CAREERS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  className="rounded-full px-6 h-12 text-sm sm:text-base font-bold border-cyan-500/40 bg-cyan-950/40 text-cyan-200 hover:bg-cyan-900/60 hover:text-white backdrop-blur-sm shadow-md"
+                >
+                  <span>Official Google Form</span>
+                  <ExternalLink className="w-4 h-4 ml-2 text-cyan-400" />
+                </Button>
+              </a>
+
               <Button
                 variant="outline"
                 onClick={() => handleOpenApplyModal()}
                 className="rounded-full px-6 h-12 text-sm sm:text-base font-bold border-slate-700 bg-slate-900/60 text-slate-200 hover:bg-slate-800 hover:text-white backdrop-blur-sm"
               >
-                <Briefcase className="w-4 h-4 mr-2 text-cyan-400" />
-                <span>Submit General Application</span>
+                <Briefcase className="w-4 h-4 mr-2 text-blue-400" />
+                <span>Direct Application</span>
               </Button>
             </motion.div>
 
@@ -567,8 +588,8 @@ export default function Careers() {
                 <p className="text-xs text-slate-400 mt-1 font-medium">Flexible Work Modes</p>
               </div>
               <div className="text-center p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
-                <p className="text-2xl sm:text-3xl font-black text-indigo-400">Fast Track</p>
-                <p className="text-xs text-slate-400 mt-1 font-medium">Interview in 48 Hours</p>
+                <p className="text-2xl sm:text-3xl font-black text-indigo-400">Google Form</p>
+                <p className="text-xs text-slate-400 mt-1 font-medium">Quick Apply Available</p>
               </div>
             </motion.div>
 
@@ -633,7 +654,7 @@ export default function Careers() {
               Explore Our Open Vacancies
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
-              Discover your next career leap. Search across departments, find your ideal fit, and apply in under 2 minutes.
+              Discover your next career leap. Search across departments, find your ideal fit, and apply in under 2 minutes directly or via Google Form.
             </p>
           </div>
 
@@ -727,9 +748,9 @@ export default function Careers() {
                 </div>
                 <h3 className="text-lg font-bold text-slate-800">No vacancies match your current filters</h3>
                 <p className="text-sm text-slate-500 max-w-md mx-auto">
-                  Try adjusting your search terms or department filter, or submit a general application so we have your resume on file.
+                  Try adjusting your search terms or department filter, or submit a general application via Google Form so we have your resume on file.
                 </p>
-                <div className="flex justify-center gap-3 pt-2">
+                <div className="flex flex-wrap justify-center gap-3 pt-2">
                   <Button
                     variant="outline"
                     onClick={() => {
@@ -741,11 +762,21 @@ export default function Careers() {
                   >
                     Reset All Filters
                   </Button>
+                  <a
+                    href={GOOGLE_FORM_CAREERS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button className="rounded-xl text-xs bg-slate-800 text-white hover:bg-slate-900">
+                      <span>Apply via Google Form</span>
+                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
+                    </Button>
+                  </a>
                   <Button
                     onClick={() => handleOpenApplyModal()}
                     className="rounded-xl text-xs bg-blue-600 text-white"
                   >
-                    Submit General Application
+                    Direct Application
                   </Button>
                 </div>
               </div>
@@ -835,6 +866,16 @@ export default function Careers() {
                         <span>Apply Now</span>
                         <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                       </Button>
+
+                      <a
+                        href={GOOGLE_FORM_CAREERS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-blue-600 transition-colors pt-0.5"
+                      >
+                        <span>Google Form</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
                     </div>
 
                   </div>
@@ -855,7 +896,7 @@ export default function Careers() {
                   Don't see the exact title you're seeking?
                 </h3>
                 <p className="text-sm text-slate-300 max-w-xl">
-                  We are always seeking exceptional talent in AI engineering, mobile development, sales, and software design. Send us your profile and let's explore opportunities together.
+                  We are always seeking exceptional talent in AI engineering, mobile development, sales, and software design. Send us your profile via our direct portal or Google Form.
                 </p>
               </div>
 
@@ -864,9 +905,18 @@ export default function Careers() {
                   onClick={() => handleOpenApplyModal()}
                   className="rounded-full px-6 h-11 text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 shadow-lg"
                 >
-                  <span>Submit Open Application</span>
+                  <span>Direct Application</span>
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
+                <a
+                  href={GOOGLE_FORM_CAREERS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 h-11 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-md transition-all border border-blue-400/40"
+                >
+                  <span>Google Form</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
                 <a
                   href="https://wa.me/918754020556?text=Hi%20VY%20NextGen%20HR%2C%20I%20am%20interested%20in%20career%20opportunities."
                   target="_blank"
@@ -1067,10 +1117,17 @@ export default function Careers() {
 
               {/* Modal Footer CTA */}
               <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="text-xs text-slate-500">
-                  <span>Questions? Call HR: </span>
-                  <a href="tel:+918754020556" className="font-bold text-blue-600 hover:underline">
-                    +91 87540 20556
+                <div className="text-xs text-slate-500 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <span>Questions? Call HR: <a href="tel:+918754020556" className="font-bold text-blue-600 hover:underline">+91 87540 20556</a></span>
+                  <span className="hidden sm:inline text-slate-300">•</span>
+                  <a
+                    href={GOOGLE_FORM_CAREERS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-blue-600 hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>Google Form</span>
+                    <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
                 <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -1114,6 +1171,23 @@ export default function Careers() {
             </DialogDescription>
           </DialogHeader>
 
+          {/* Google Form Alternative Notice */}
+          <div className="p-3.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-700">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+              <span>Prefer submitting via Google Forms?</span>
+            </div>
+            <a
+              href={GOOGLE_FORM_CAREERS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1.5 underline underline-offset-2"
+            >
+              <span>Open Official Google Form</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
           {isSuccessSubmitted ? (
             <div className="py-8 text-center space-y-4">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
@@ -1146,7 +1220,7 @@ export default function Careers() {
             </div>
           ) : (
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-2">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-1">
                 
                 {/* Full Name */}
                 <FormField
