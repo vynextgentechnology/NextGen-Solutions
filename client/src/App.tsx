@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { CustomCursor } from "@/components/CustomCursor";
+import { ScrollProgressBar, ScrollToTopButton } from "@/components/ScrollAnimation";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
@@ -50,12 +52,15 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <ScrollProgressBar />
+        <CustomCursor />
         <div className="flex flex-col min-h-screen">
           <main className="flex-grow">
             <Router />
           </main>
           <Footer />
           <FloatingWhatsApp />
+          <ScrollToTopButton />
         </div>
         <Toaster />
       </TooltipProvider>

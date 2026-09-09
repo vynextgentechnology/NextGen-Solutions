@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -19,6 +20,8 @@ import {
 } from "lucide-react";
 
 import { FaWhatsapp } from "react-icons/fa";
+import { MouseScrollIndicator } from "@/components/ScrollAnimation";
+import { SpotlightCard } from "@/components/InteractiveSpotlightCard";
 import founderPhoto from "@assets/file_000000002dc871fa82cdcaab5c34b0ec_1776134862189.png";
 import narendraPhoto from "@assets/narendra_prasath_ceo.png";
 import yuvanPhoto from "@assets/yuvan_shankar_raja_co_founder.png";
@@ -164,6 +167,13 @@ const marqueeItems = [
 ];
 
 export default function About() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: timelineProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 70%", "end 80%"],
+  });
+  const smoothTimelineProgress = useSpring(timelineProgress, { stiffness: 100, damping: 30 });
+  const timelineHeight = useTransform(smoothTimelineProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500/20 selection:text-cyan-300 font-sans overflow-x-hidden">
@@ -222,6 +232,11 @@ export default function About() {
                   <p className="text-xs text-slate-400 font-medium mt-1 uppercase tracking-wider">{m.label}</p>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Animated Mouse Scroll Indicator */}
+            <div className="mt-12 flex justify-center">
+              <MouseScrollIndicator targetId="leadership" />
             </div>
           </motion.div>
         </div>
@@ -310,15 +325,20 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className={`bg-slate-950/80 p-7 rounded-2xl border border-slate-800 ${v.glow} transition-all duration-300 backdrop-blur-md shadow-xl flex flex-col justify-between`}
+                className="h-full"
               >
-                <div>
-                  <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center mb-5 shadow-inner">
-                    {v.icon}
+                <SpotlightCard
+                  spotlightColor="rgba(6, 182, 212, 0.15)"
+                  className={`h-full bg-slate-950/80 p-7 rounded-2xl border border-slate-800 ${v.glow} transition-all duration-300 backdrop-blur-md shadow-xl flex flex-col justify-between`}
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center mb-5 shadow-inner">
+                      {v.icon}
+                    </div>
+                    <h4 className="text-lg font-bold text-white mb-2">{v.title}</h4>
+                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{v.desc}</p>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">{v.title}</h4>
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{v.desc}</p>
-                </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </div>
@@ -367,8 +387,10 @@ export default function About() {
                 whileHover={{ y: -8, transition: { duration: 0.25, ease: "easeOut" } }}
                 className="group relative rounded-3xl p-[1px] bg-gradient-to-b from-slate-800 via-slate-800/50 to-slate-900 hover:from-cyan-400/60 hover:via-blue-500/40 hover:to-indigo-500/50 transition-all duration-500 shadow-xl hover:shadow-[0_20px_50px_rgba(6,182,212,0.2)] flex flex-col justify-between"
               >
-                <div className="bg-slate-950/90 backdrop-blur-xl rounded-3xl p-5 sm:p-6 flex flex-col justify-between h-full relative overflow-hidden">
-                  
+                <SpotlightCard
+                  spotlightColor="rgba(6, 182, 212, 0.22)"
+                  className="bg-slate-950/90 backdrop-blur-xl rounded-3xl p-5 sm:p-6 flex flex-col justify-between h-full relative overflow-hidden"
+                >
                   {/* Subtle Corner Tech Accent */}
                   <div className="absolute top-3 right-3 text-[10px] font-mono font-bold text-slate-700 group-hover:text-cyan-400/70 transition-colors duration-300 select-none">
                     [ 0{idx + 1} ]
@@ -445,7 +467,7 @@ export default function About() {
 
                   {/* Animated Neon Glowing Bottom Accent Line */}
                   <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
-                </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </div>
@@ -455,7 +477,7 @@ export default function About() {
 
       {/* 6. Company Evolution Timeline (Zyvex Style Vertical Timeline) */}
 
-      <section id="timeline" className="py-28 bg-slate-900/60 relative overflow-hidden border-t border-slate-900">
+      <section id="timeline" ref={timelineRef} className="py-28 bg-slate-900/60 relative overflow-hidden border-t border-slate-900">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
           
           <div className="text-center max-w-2xl mx-auto mb-20">
@@ -469,32 +491,44 @@ export default function About() {
           </div>
 
           <div className="relative">
-            {/* Center Vertical Glowing Gradient Line */}
-            <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-emerald-500 -translate-x-1/2 shadow-[0_0_12px_#06b6d4]" />
+            {/* Center Vertical Inactive Track */}
+            <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-slate-800 -translate-x-1/2" />
+
+            {/* Center Vertical Animated Scroll-Driven Beam */}
+            <motion.div 
+              style={{ height: timelineHeight }}
+              className="absolute left-4 sm:left-1/2 top-0 w-0.5 bg-gradient-to-b from-cyan-400 via-blue-500 to-emerald-400 -translate-x-1/2 shadow-[0_0_14px_#06b6d4] origin-top z-10" 
+            />
 
             <div className="space-y-12">
               {milestones.map((m, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30, y: 15 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
                   className={`relative flex items-center ${
                     idx % 2 === 0 ? "sm:flex-row-reverse" : "sm:flex-row"
                   } flex-row`}
                 >
                   {/* Timeline Dot Node with Pulsing Ring */}
                   <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 z-20 flex items-center justify-center">
-                    <div 
-                      className="w-5 h-5 rounded-full border-2 border-white shadow-lg animate-pulse"
+                    <motion.div 
+                      whileInView={{ scale: [0.8, 1.3, 1] }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5 }}
+                      className="w-5 h-5 rounded-full border-2 border-white shadow-lg"
                       style={{ backgroundColor: m.color, boxShadow: `0 0 16px ${m.color}` }}
                     />
                   </div>
 
-                  {/* Content Card */}
+                  {/* Content Card with Spotlight */}
                   <div className="ml-12 sm:ml-0 sm:w-1/2 sm:px-8">
-                    <div className="bg-slate-950/90 border border-slate-800 hover:border-cyan-500/50 p-6 rounded-2xl backdrop-blur-xl shadow-xl transition-all duration-300 group">
+                    <SpotlightCard
+                      spotlightColor="rgba(6, 182, 212, 0.16)"
+                      className="bg-slate-950/90 border border-slate-800 hover:border-cyan-500/50 p-6 rounded-2xl backdrop-blur-xl shadow-xl transition-all duration-300 group"
+                    >
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span 
                           className="px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase text-white shadow"
@@ -512,7 +546,7 @@ export default function About() {
                       <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                         {m.desc}
                       </p>
-                    </div>
+                    </SpotlightCard>
                   </div>
                 </motion.div>
               ))}
