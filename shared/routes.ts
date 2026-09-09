@@ -1,5 +1,12 @@
 import { z } from 'zod';
-import { insertContactMessageSchema, insertWebsiteOrderSchema, contactMessages, websiteOrders } from './schema';
+import { 
+  insertContactMessageSchema, 
+  insertWebsiteOrderSchema, 
+  insertJobApplicationSchema,
+  contactMessages, 
+  websiteOrders,
+  jobApplications
+} from './schema';
 
 export const errorSchemas = {
   validation: z.object({
@@ -36,4 +43,17 @@ export const api = {
       },
     },
   },
+  careers: {
+    apply: {
+      method: 'POST' as const,
+      path: '/api/careers',
+      input: insertJobApplicationSchema,
+      responses: {
+        201: z.custom<typeof jobApplications.$inferSelect>(),
+        400: errorSchemas.validation,
+        500: errorSchemas.internal,
+      },
+    },
+  },
 };
+

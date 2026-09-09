@@ -1,5 +1,13 @@
 import nodemailer from "nodemailer";
-import type { InsertWebsiteOrder, InsertContactMessage, WebsiteOrder, ContactMessage } from "@shared/schema";
+import type { 
+  InsertWebsiteOrder, 
+  InsertContactMessage, 
+  WebsiteOrder, 
+  ContactMessage,
+  InsertJobApplication,
+  JobApplication
+} from "@shared/schema";
+
 
 const COMPANY_NOTIFICATION_EMAIL = "vynextgentechnology@gmail.com";
 
@@ -243,3 +251,144 @@ Received:   ${formattedTime} IST
     return { success: false, message: error.message };
   }
 }
+
+/**
+ * Dispatches an automated email notification to vynextgentechnology@gmail.com
+ * whenever a candidate submits a job application on the Careers page.
+ */
+export async function sendCareerApplicationNotification(app: JobApplication | InsertJobApplication): Promise<{ success: boolean; message: string }> {
+  const formattedTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+  const cleanPhone = (app.phone || "").replace(/[^0-9]/g, "");
+  const subject = `💼 New Job Application: ${app.fullName} - ${app.position}`;
+
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #1e293b; }
+          .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+          .header { background: linear-gradient(135deg, #041d57 0%, #1e40af 100%); padding: 24px; color: #ffffff; text-align: center; }
+          .header h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+          .header p { margin: 6px 0 0 0; font-size: 13px; color: #93c5fd; }
+          .body { padding: 24px; }
+          .badge { display: inline-block; padding: 4px 12px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 9999px; font-size: 12px; font-weight: 700; margin-bottom: 16px; }
+          table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+          td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+          td.label { width: 35%; font-weight: 600; color: #64748b; background-color: #f8fafc; }
+          td.value { width: 65%; color: #0f172a; font-weight: 500; }
+          .actions { margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; gap: 12px; text-align: center; flex-wrap: wrap; }
+          .btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; margin-right: 8px; }
+          .btn-primary { background: #2563eb; color: #ffffff !important; }
+          .btn-whatsapp { background: #10b981; color: #ffffff !important; }
+          .footer { background: #f8fafc; padding: 16px 24px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>VY NextGen Technologies</h1>
+            <p>Talent Acquisition & Careers Portal</p>
+          </div>
+          <div class="body">
+            <span class="badge">Candidate Status: Application Submitted</span>
+            <h2 style="font-size: 18px; color: #0f172a; margin-top: 4px;">Candidate: ${app.fullName}</h2>
+            <p style="font-size: 14px; color: #475569; margin-top: 0;">Applied for: <strong style="color: #2563eb;">${app.position}</strong></p>
+
+            <table>
+              <tr>
+                <td class="label">Candidate Name</td>
+                <td class="value"><strong>${app.fullName}</strong></td>
+              </tr>
+              <tr>
+                <td class="label">Position</td>
+                <td class="value"><strong style="color: #0284c7;">${app.position}</strong></td>
+              </tr>
+              <tr>
+                <td class="label">Experience Level</td>
+                <td class="value">${app.experience}</td>
+              </tr>
+              <tr>
+                <td class="label">Email Address</td>
+                <td class="value"><a href="mailto:${app.email}" style="color: #2563eb;">${app.email}</a></td>
+              </tr>
+              <tr>
+                <td class="label">Phone / WhatsApp</td>
+                <td class="value"><a href="tel:${app.phone}" style="color: #2563eb;">${app.phone}</a></td>
+              </tr>
+              <tr>
+                <td class="label">LinkedIn / GitHub</td>
+                <td class="value">${app.portfolioUrl ? `<a href="${app.portfolioUrl}" target="_blank" style="color: #2563eb;">${app.portfolioUrl}</a>` : "Not provided"}</td>
+              </tr>
+              <tr>
+                <td class="label">Resume Link</td>
+                <td class="value">${app.resumeUrl ? `<a href="${app.resumeUrl}" target="_blank" style="color: #2563eb; font-weight: bold;">View / Download Resume</a>` : "Not provided"}</td>
+              </tr>
+              <tr>
+                <td class="label">Cover Note / Intro</td>
+                <td class="value" style="white-space: pre-wrap;">${app.coverNote || "None provided"}</td>
+              </tr>
+              <tr>
+                <td class="label">Applied At</td>
+                <td class="value">${formattedTime} (IST)</td>
+              </tr>
+            </table>
+
+            <div class="actions">
+              <a href="tel:${app.phone}" class="btn btn-primary">Call Candidate</a>
+              ${cleanPhone ? `<a href="https://wa.me/${cleanPhone}" class="btn btn-whatsapp">WhatsApp Candidate</a>` : ""}
+              <a href="mailto:${app.email}?subject=${encodeURIComponent(`Application at VY NextGen Technologies - ${app.position}`)}" class="btn btn-primary" style="background:#475569;">Email Candidate</a>
+            </div>
+          </div>
+          <div class="footer">
+            Delivered directly to <strong>${COMPANY_NOTIFICATION_EMAIL}</strong> • VY NextGen Recruitment Desk
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  const textContent = `
+===================================================================
+NEW JOB APPLICATION - VY NEXTGEN TECHNOLOGIES
+===================================================================
+Candidate Name:   ${app.fullName}
+Position:         ${app.position}
+Experience:       ${app.experience}
+Email Address:    ${app.email}
+Phone / WhatsApp: ${app.phone}
+LinkedIn / Port:  ${app.portfolioUrl || "None"}
+Resume URL:       ${app.resumeUrl || "None"}
+Cover Note:       ${app.coverNote || "None"}
+Received At:      ${formattedTime} IST
+===================================================================
+  `.trim();
+
+  console.log("\n" + textContent + "\n");
+
+  const transporter = getTransporter();
+  if (!transporter) {
+    const warning = `[Careers Mailer] Live email dispatch paused: EMAIL_USER / EMAIL_PASS not set. Application details logged above for ${COMPANY_NOTIFICATION_EMAIL}.`;
+    console.log(warning);
+    return { success: false, message: warning };
+  }
+
+  try {
+    const info = await transporter.sendMail({
+      from: `"VY NextGen Careers Desk" <${process.env.EMAIL_USER || process.env.GMAIL_USER}>`,
+      to: COMPANY_NOTIFICATION_EMAIL,
+      replyTo: app.email,
+      subject: subject,
+      text: textContent,
+      html: htmlContent,
+    });
+
+    console.log(`[Careers Mailer] Successfully sent application email to ${COMPANY_NOTIFICATION_EMAIL}! Message ID: ${info.messageId}`);
+    return { success: true, message: `Application delivered to ${COMPANY_NOTIFICATION_EMAIL}` };
+  } catch (error: any) {
+    console.error(`[Careers Mailer] Error sending application email:`, error.message);
+    return { success: false, message: error.message };
+  }
+}
+

@@ -10,7 +10,8 @@ import {
   GraduationCap, 
   Phone,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Briefcase
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -183,12 +184,26 @@ export function Navigation() {
             </span>
           </Link>
 
+          <Link
+            href="/careers"
+            className={`flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-blue-600 ${
+              location === "/careers" ? "text-blue-600 font-bold" : "text-slate-600"
+            }`}
+          >
+            <Briefcase className="w-4 h-4 text-blue-600" />
+            <span>Careers</span>
+            <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+              Hiring
+            </span>
+          </Link>
+
           <a
             href="/#contact"
             className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors"
           >
             Contact
           </a>
+
         </nav>
 
         {/* Right Action CTAs */}
@@ -291,6 +306,20 @@ export function Navigation() {
                 </span>
               </Link>
 
+              <Link
+                href="/careers"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between text-base font-bold text-slate-800 hover:text-blue-600 py-1"
+              >
+                <div className="flex items-center gap-2">
+                  <Briefcase className="w-5 h-5 text-blue-600" />
+                  <span>Careers & Job Openings</span>
+                </div>
+                <span className="text-xs bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">
+                  We're Hiring
+                </span>
+              </Link>
+
               <a
                 href="/#contact"
                 className="block text-base font-bold text-slate-800 hover:text-blue-600 py-1"
@@ -298,6 +327,7 @@ export function Navigation() {
               >
                 Contact Us
               </a>
+
 
               <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
                 <a

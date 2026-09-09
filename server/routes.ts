@@ -3,7 +3,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
-import { sendEnquiryNotification, sendContactNotification } from "./mailer";
+import { sendEnquiryNotification, sendContactNotification, sendCareerApplicationNotification } from "./mailer";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -54,5 +54,28 @@ export async function registerRoutes(
     }
   });
 
+  app.post(api.careers.apply.path, async (req, res) => {
+    try {
+      const input = api.careers.apply.input.parse(req.body);
+      const application = await storage.createJobApplication(input);
+
+      // Dispatch direct email notification to vynextgentechnology@gmail.com
+      sendCareerApplicationNotification(application).catch((mailErr) => {
+        console.error("[Mailer Error] Failed to send career application notification:", mailErr);
+      });
+
+      res.status(201).json(application);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({
+          message: err.errors[0].message,
+          field: err.errors[0].path.join('.'),
+        });
+      }
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  });
+
   return httpServer;
 }
+

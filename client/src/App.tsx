@@ -15,6 +15,7 @@ import WebDevelopment from "@/pages/WebDevelopment";
 import BillingSoftware from "@/pages/BillingSoftware";
 import Internship from "@/pages/Internship";
 import Enquiry from "@/pages/Enquiry";
+import Careers from "@/pages/Careers";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -39,6 +40,9 @@ function Router() {
         <Route path="/web-development" component={WebDevelopment} />
         <Route path="/billing-software" component={BillingSoftware} />
         <Route path="/internship" component={Internship} />
+        <Route path="/careers" component={Careers} />
+        <Route path="/jobs" component={Careers} />
+        <Route path="/vacancies" component={Careers} />
         <Route path="/enquiry" component={Enquiry} />
         <Route path="/order" component={Enquiry} />
         <Route component={NotFound} />
@@ -46,6 +50,7 @@ function Router() {
     </>
   );
 }
+
 
 
 function App() {

@@ -27,6 +27,19 @@ export const websiteOrders = pgTable("website_orders", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const jobApplications = pgTable("job_applications", {
+  id: serial("id").primaryKey(),
+  fullName: text("full_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  position: text("position").notNull(),
+  experience: text("experience").notNull(),
+  portfolioUrl: text("portfolio_url"),
+  resumeUrl: text("resume_url"),
+  coverNote: text("cover_note"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
   id: true,
   createdAt: true
@@ -37,8 +50,17 @@ export const insertWebsiteOrderSchema = createInsertSchema(websiteOrders).omit({
   createdAt: true
 });
 
+export const insertJobApplicationSchema = createInsertSchema(jobApplications).omit({
+  id: true,
+  createdAt: true
+});
+
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type ContactMessage = typeof contactMessages.$inferSelect;
 
 export type InsertWebsiteOrder = z.infer<typeof insertWebsiteOrderSchema>;
 export type WebsiteOrder = typeof websiteOrders.$inferSelect;
+
+export type InsertJobApplication = z.infer<typeof insertJobApplicationSchema>;
+export type JobApplication = typeof jobApplications.$inferSelect;
+

@@ -154,6 +154,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/careers" className="hover:text-cyan-400 transition-colors inline-flex items-center gap-1 group">
+                  <span>Careers & Job Openings</span>
+                  <span className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">Hiring</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/web-development" className="hover:text-cyan-400 transition-colors">
                   Development Packages
                 </Link>
@@ -208,6 +214,9 @@ export function Footer() {
             <Link href="/about" className="hover:text-white transition-colors">
               About Us
             </Link>
+            <Link href="/careers" className="hover:text-white transition-colors">
+              Careers
+            </Link>
             <Link href="/enquiry" className="hover:text-white transition-colors">
               Project Enquiry
             </Link>
@@ -219,6 +228,7 @@ export function Footer() {
             </Link>
           </div>
         </div>
+
       </div>
     </footer>
   );
