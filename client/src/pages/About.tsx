@@ -20,11 +20,11 @@ import {
 
 import { FaWhatsapp } from "react-icons/fa";
 import founderPhoto from "@assets/file_000000002dc871fa82cdcaab5c34b0ec_1776134862189.png";
-import narendraPhoto from "@assets/narendra_prasath_ceo.jpeg";
+import narendraPhoto from "@assets/narendra_prasath_ceo.png";
 import yuvanPhoto from "@assets/yuvan_shankar_raja_co_founder.png";
 import santhoshPhoto from "@assets/santhosh_managing_director.png";
 import yeswanthPhoto from "@assets/yeswanth_director.png";
-import sriPrajithPhoto from "@assets/sri_prajith_cto_cfo.jpg";
+import sriPrajithPhoto from "@assets/sri_prajith_cto_cfo.png";
 import logoImg from "@assets/vy_nextgen_logo.png";
 
 export interface ExecutiveLeader {
