@@ -1,22 +1,7 @@
 import { useState, useMemo } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { insertJobApplicationSchema, type InsertJobApplication } from "@shared/schema";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -62,10 +47,8 @@ import { FaWhatsapp } from "react-icons/fa";
 
 /**
  * Official Google Form URL for VY NextGen Technologies Job Vacancies.
- * Can be updated anytime when a new Google Form is created.
  */
 export const GOOGLE_FORM_CAREERS_URL = "https://docs.google.com/forms/d/e/1FAIpQLScfJHdU2Ea2BZCnXHRXrR89hz8vs0h5HhGV_wforZRAbUSISg/viewform";
-
 
 export interface JobListing {
   id: string;
@@ -341,8 +324,8 @@ const PERKS_LIST = [
 const HIRING_PROCESS = [
   {
     step: "01",
-    title: "Submit Profile",
-    desc: "Select your desired opening and submit your details or resume via our quick application portal or Google Form.",
+    title: "Submit Google Form",
+    desc: "Complete our quick 2-minute official Google Form with your details, skills, and resume link.",
     icon: <Send className="w-5 h-5 text-blue-500" />
   },
   {
@@ -367,12 +350,12 @@ const HIRING_PROCESS = [
 
 const FAQS = [
   {
-    q: "Can freshers apply for engineering roles at VY NextGen?",
-    a: "Absolutely! We actively hire ambitious freshers for our Junior Software Trainee and Associate Developer roles. If you have a solid understanding of fundamental programming, strong curiosity, and a willingness to learn, we would love to mentor you."
+    q: "How do I apply for a vacancy at VY NextGen Technologies?",
+    a: "We accept applications exclusively through our official Google Form. Simply click 'Apply via Google Form' on any role or in the hero banner, fill out your details in 2 minutes, and our HR team will review your application."
   },
   {
-    q: "Can I apply using Google Forms?",
-    a: "Yes! We provide both an instant on-site application form and an official Google Form. You can use whichever method is most convenient for you. Both go directly to our HR recruitment desk."
+    q: "Can freshers apply for engineering roles at VY NextGen?",
+    a: "Absolutely! We actively hire ambitious freshers for our Junior Software Trainee and Associate Developer roles. If you have a solid understanding of fundamental programming, strong curiosity, and a willingness to learn, we would love to mentor you."
   },
   {
     q: "Where is the office located and are remote options available?",
@@ -380,71 +363,19 @@ const FAQS = [
   },
   {
     q: "How soon can I expect a response after submitting my application?",
-    a: "Our recruitment desk reviews every application within 24 to 48 hours. If your skills match an open vacancy, our HR coordinator will contact you via WhatsApp or phone call."
+    a: "Our recruitment desk reviews every Google Form application within 24 to 48 hours. If your profile matches an open vacancy, our HR coordinator will contact you via WhatsApp or phone call."
   },
   {
-    q: "What if there is no role matching my exact profile right now?",
-    a: "You can still submit a general application! Select 'General Application' in the position dropdown or fill out the Google Form, tell us what you do best, and our talent team will reach out when a suitable vacancy opens."
+    q: "What if there is no opening matching my exact profile right now?",
+    a: "You can still submit your application! In the Google Form, select 'General Application / Other Openings', tell us what you do best, and our talent team will reach out when a suitable vacancy opens."
   }
 ];
 
 export default function Careers() {
-  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDept, setSelectedDept] = useState<string>("All");
   const [selectedWorkMode, setSelectedWorkMode] = useState<string>("All");
   const [activeJobDetails, setActiveJobDetails] = useState<JobListing | null>(null);
-  const [isApplyOpen, setIsApplyOpen] = useState(false);
-  const [isSuccessSubmitted, setIsSuccessSubmitted] = useState(false);
-
-  const form = useForm<InsertJobApplication>({
-    resolver: zodResolver(insertJobApplicationSchema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-      position: "Senior Full-Stack Developer",
-      experience: "1 - 3 Years",
-      portfolioUrl: "",
-      resumeUrl: "",
-      coverNote: "",
-    },
-  });
-
-  const applyMutation = useMutation({
-    mutationFn: async (data: InsertJobApplication) => {
-      const res = await apiRequest("POST", "/api/careers", data);
-      return res.json();
-    },
-    onSuccess: () => {
-      setIsSuccessSubmitted(true);
-      toast({
-        title: "Application Dispatched Successfully! 🚀",
-        description: "Our recruitment team has received your profile and will contact you shortly.",
-      });
-      form.reset();
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Application Error",
-        description: error.message || "Failed to submit application. Please try again or WhatsApp us.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const handleOpenApplyModal = (job?: JobListing) => {
-    if (job) {
-      form.setValue("position", job.title);
-      form.setValue("experience", job.experience);
-    }
-    setIsSuccessSubmitted(false);
-    setIsApplyOpen(true);
-  };
-
-  const onSubmit = (data: InsertJobApplication) => {
-    applyMutation.mutate(data);
-  };
 
   // Filtered Job listings based on search and category selections
   const filteredJobs = useMemo(() => {
@@ -531,12 +462,12 @@ export default function Careers() {
               Join an energetic team of software architects, creative designers, and tech leaders in Karur, Tamil Nadu. Work on real-world web apps, billing engines, and high-impact digital solutions.
             </motion.p>
 
-            {/* CTAs with Google Form Button */}
+            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center gap-3.5 pt-4"
+              className="flex flex-wrap items-center justify-center gap-4 pt-4"
             >
               <a href="#vacancies">
                 <Button className="rounded-full px-7 h-12 text-sm sm:text-base font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 transition-all hover:-translate-y-0.5">
@@ -552,21 +483,12 @@ export default function Careers() {
               >
                 <Button
                   variant="outline"
-                  className="rounded-full px-6 h-12 text-sm sm:text-base font-bold border-cyan-500/40 bg-cyan-950/40 text-cyan-200 hover:bg-cyan-900/60 hover:text-white backdrop-blur-sm shadow-md"
+                  className="rounded-full px-7 h-12 text-sm sm:text-base font-bold border-cyan-500/50 bg-cyan-950/60 text-cyan-200 hover:bg-cyan-900/80 hover:text-white backdrop-blur-sm shadow-lg shadow-cyan-950/50 transition-all hover:-translate-y-0.5"
                 >
-                  <span>Official Google Form</span>
+                  <span>Apply via Google Form</span>
                   <ExternalLink className="w-4 h-4 ml-2 text-cyan-400" />
                 </Button>
               </a>
-
-              <Button
-                variant="outline"
-                onClick={() => handleOpenApplyModal()}
-                className="rounded-full px-6 h-12 text-sm sm:text-base font-bold border-slate-700 bg-slate-900/60 text-slate-200 hover:bg-slate-800 hover:text-white backdrop-blur-sm"
-              >
-                <Briefcase className="w-4 h-4 mr-2 text-blue-400" />
-                <span>Direct Application</span>
-              </Button>
             </motion.div>
 
             {/* Highlights Bar */}
@@ -589,8 +511,8 @@ export default function Careers() {
                 <p className="text-xs text-slate-400 mt-1 font-medium">Flexible Work Modes</p>
               </div>
               <div className="text-center p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
-                <p className="text-2xl sm:text-3xl font-black text-indigo-400">Google Form</p>
-                <p className="text-xs text-slate-400 mt-1 font-medium">Quick Apply Available</p>
+                <p className="text-2xl sm:text-3xl font-black text-indigo-400">Quick Apply</p>
+                <p className="text-xs text-slate-400 mt-1 font-medium">Direct Google Form</p>
               </div>
             </motion.div>
 
@@ -655,7 +577,7 @@ export default function Careers() {
               Explore Our Open Vacancies
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
-              Discover your next career leap. Search across departments, find your ideal fit, and apply in under 2 minutes directly or via Google Form.
+              Discover your next career leap. Search across departments, find your ideal fit, and apply directly through our official Google Form.
             </p>
           </div>
 
@@ -749,7 +671,7 @@ export default function Careers() {
                 </div>
                 <h3 className="text-lg font-bold text-slate-800">No vacancies match your current filters</h3>
                 <p className="text-sm text-slate-500 max-w-md mx-auto">
-                  Try adjusting your search terms or department filter, or submit a general application via Google Form so we have your resume on file.
+                  Try adjusting your search terms or department filter, or apply via Google Form so we have your resume on file.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 pt-2">
                   <Button
@@ -759,7 +681,7 @@ export default function Careers() {
                       setSelectedDept("All");
                       setSelectedWorkMode("All");
                     }}
-                    className="rounded-xl text-xs"
+                    className="rounded-xl text-xs font-bold"
                   >
                     Reset All Filters
                   </Button>
@@ -768,17 +690,11 @@ export default function Careers() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="rounded-xl text-xs bg-slate-800 text-white hover:bg-slate-900">
+                    <Button className="rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md">
                       <span>Apply via Google Form</span>
                       <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
                     </Button>
                   </a>
-                  <Button
-                    onClick={() => handleOpenApplyModal()}
-                    className="rounded-xl text-xs bg-blue-600 text-white"
-                  >
-                    Direct Application
-                  </Button>
                 </div>
               </div>
             ) : (
@@ -855,27 +771,23 @@ export default function Careers() {
                       <Button
                         variant="outline"
                         onClick={() => setActiveJobDetails(job)}
-                        className="flex-1 sm:flex-none rounded-xl h-10 px-4 text-xs font-bold border-slate-200 hover:bg-slate-100 text-slate-700"
+                        className="flex-1 sm:flex-none rounded-xl h-11 px-4 text-xs font-bold border-slate-200 hover:bg-slate-100 text-slate-700"
                       >
                         View Details
                       </Button>
                       
-                      <Button
-                        onClick={() => handleOpenApplyModal(job)}
-                        className="flex-1 sm:flex-none rounded-xl h-10 px-5 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20"
-                      >
-                        <span>Apply Now</span>
-                        <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                      </Button>
-
                       <a
                         href={GOOGLE_FORM_CAREERS_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-blue-600 transition-colors pt-0.5"
+                        className="flex-1 sm:flex-none"
                       >
-                        <span>Google Form</span>
-                        <ExternalLink className="w-3 h-3" />
+                        <Button
+                          className="w-full sm:w-auto rounded-xl h-11 px-5 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition-all hover:-translate-y-0.5"
+                        >
+                          <span>Apply via Google Form</span>
+                          <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
+                        </Button>
                       </a>
                     </div>
 
@@ -885,7 +797,7 @@ export default function Careers() {
             )}
           </div>
 
-          {/* Didn't find your position banner */}
+          {/* Bottom Banner */}
           <div className="max-w-5xl mx-auto mt-12 p-8 rounded-3xl bg-gradient-to-r from-[#041d57] to-blue-900 text-white shadow-xl relative overflow-hidden">
             <div className="absolute right-0 top-0 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full pointer-events-none" />
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -897,26 +809,22 @@ export default function Careers() {
                   Don't see the exact title you're seeking?
                 </h3>
                 <p className="text-sm text-slate-300 max-w-xl">
-                  We are always seeking exceptional talent in AI engineering, mobile development, sales, and software design. Send us your profile via our direct portal or Google Form.
+                  We are always seeking exceptional talent in AI engineering, mobile development, sales, and software design. Complete our official Google Form and select 'General Application'.
                 </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-3 shrink-0">
-                <Button
-                  onClick={() => handleOpenApplyModal()}
-                  className="rounded-full px-6 h-11 text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 shadow-lg"
-                >
-                  <span>Direct Application</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
                 <a
                   href={GOOGLE_FORM_CAREERS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 h-11 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-md transition-all border border-blue-400/40"
                 >
-                  <span>Google Form</span>
-                  <ExternalLink className="w-4 h-4" />
+                  <Button
+                    className="rounded-full px-7 h-11 text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 shadow-lg"
+                  >
+                    <span>Open Google Form</span>
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
                 </a>
                 <a
                   href="https://wa.me/918754020556?text=Hi%20VY%20NextGen%20HR%2C%20I%20am%20interested%20in%20career%20opportunities."
@@ -1118,17 +1026,10 @@ export default function Careers() {
 
               {/* Modal Footer CTA */}
               <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="text-xs text-slate-500 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                  <span>Questions? Call HR: <a href="tel:+918754020556" className="font-bold text-blue-600 hover:underline">+91 87540 20556</a></span>
-                  <span className="hidden sm:inline text-slate-300">•</span>
-                  <a
-                    href={GOOGLE_FORM_CAREERS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-blue-600 hover:underline inline-flex items-center gap-1"
-                  >
-                    <span>Google Form</span>
-                    <ExternalLink className="w-3 h-3" />
+                <div className="text-xs text-slate-500">
+                  <span>Questions? Call HR: </span>
+                  <a href="tel:+918754020556" className="font-bold text-blue-600 hover:underline">
+                    +91 87540 20556
                   </a>
                 </div>
                 <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -1139,296 +1040,24 @@ export default function Careers() {
                   >
                     Close
                   </Button>
-                  <Button
-                    onClick={() => {
-                      const job = activeJobDetails;
-                      setActiveJobDetails(null);
-                      handleOpenApplyModal(job);
-                    }}
-                    className="flex-1 sm:flex-none rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md"
+                  <a
+                    href={GOOGLE_FORM_CAREERS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 sm:flex-none"
                   >
-                    Apply for this Role
-                  </Button>
+                    <Button
+                      className="w-full sm:w-auto rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md"
+                    >
+                      <span>Apply via Google Form</span>
+                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
+                    </Button>
+                  </a>
                 </div>
               </div>
 
             </div>
           )}
-        </DialogContent>
-      </Dialog>
-
-      {/* ========================================================================= */}
-      {/* APPLICATION MODAL FORM */}
-      {/* ========================================================================= */}
-      <Dialog open={isApplyOpen} onOpenChange={setIsApplyOpen}>
-        <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-3xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-slate-900 flex items-center gap-2">
-              <Briefcase className="w-5 h-5 text-blue-600" />
-              <span>Apply for Position</span>
-            </DialogTitle>
-            <DialogDescription className="text-xs sm:text-sm text-slate-600">
-              Fill out the form below. Our recruitment desk will review your submission and contact you within 24–48 hours.
-            </DialogDescription>
-          </DialogHeader>
-
-          {/* Google Form Alternative Notice */}
-          <div className="p-3.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-700">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-              <span>Prefer submitting via Google Forms?</span>
-            </div>
-            <a
-              href={GOOGLE_FORM_CAREERS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1.5 underline underline-offset-2"
-            >
-              <span>Open Official Google Form</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {isSuccessSubmitted ? (
-            <div className="py-8 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-10 h-10" />
-              </div>
-              <h3 className="text-xl font-black text-slate-900">
-                Application Received Successfully!
-              </h3>
-              <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                Thank you for applying to VY NextGen Technologies. We have notified our hiring manager. You may also ping our HR desk directly on WhatsApp for expedited tracking.
-              </p>
-              <div className="pt-3 flex flex-wrap justify-center gap-3">
-                <a
-                  href="https://wa.me/918754020556?text=Hi%20HR%20Desk%2C%20I%20just%20submitted%20my%20job%20application%20on%20the%20careers%20portal."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 shadow-md transition-all"
-                >
-                  <FaWhatsapp className="w-4 h-4" />
-                  <span>Notify HR via WhatsApp</span>
-                </a>
-                <Button
-                  variant="outline"
-                  onClick={() => setIsApplyOpen(false)}
-                  className="rounded-xl text-xs font-bold"
-                >
-                  Done
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-1">
-                
-                {/* Full Name */}
-                <FormField
-                  control={form.control}
-                  name="fullName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-xs font-bold text-slate-700">Full Name *</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="e.g. Senthil Kumar"
-                          {...field}
-                          className="h-10 rounded-xl text-sm"
-                          required
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {/* Email and Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs font-bold text-slate-700">Email Address *</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="name@gmail.com"
-                            {...field}
-                            className="h-10 rounded-xl text-sm"
-                            required
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs font-bold text-slate-700">WhatsApp / Phone *</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="+91 98765 43210"
-                            {...field}
-                            className="h-10 rounded-xl text-sm"
-                            required
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                {/* Position and Experience Level */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <FormField
-                    control={form.control}
-                    name="position"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs font-bold text-slate-700">Position Applied For *</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger className="h-10 rounded-xl text-xs">
-                              <SelectValue placeholder="Select Position" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {JOB_VACANCIES.map((j) => (
-                              <SelectItem key={j.id} value={j.title}>
-                                {j.title}
-                              </SelectItem>
-                            ))}
-                            <SelectItem value="General Application / Other">
-                              General Application / Other
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="experience"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs font-bold text-slate-700">Total Experience *</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger className="h-10 rounded-xl text-xs">
-                              <SelectValue placeholder="Experience Level" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="Fresher / Recent Graduate">Fresher / Graduate (0 yrs)</SelectItem>
-                            <SelectItem value="1 - 2 Years">1 - 2 Years</SelectItem>
-                            <SelectItem value="2 - 4 Years">2 - 4 Years</SelectItem>
-                            <SelectItem value="4+ Years (Senior)">4+ Years (Senior)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                {/* Portfolio / LinkedIn & Resume URL */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <FormField
-                    control={form.control}
-                    name="portfolioUrl"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs font-bold text-slate-700">
-                          LinkedIn or GitHub Profile
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="https://linkedin.com/in/username"
-                            {...field}
-                            value={field.value || ""}
-                            className="h-10 rounded-xl text-sm"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="resumeUrl"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs font-bold text-slate-700">
-                          Resume Link (Google Drive / Cloud)
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="https://drive.google.com/file/..."
-                            {...field}
-                            value={field.value || ""}
-                            className="h-10 rounded-xl text-sm"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                {/* Cover Note / Brief Bio */}
-                <FormField
-                  control={form.control}
-                  name="coverNote"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-xs font-bold text-slate-700">
-                        Why are you excited to join VY NextGen? (Optional)
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Briefly tell us about your key projects, notice period, or what drives you..."
-                          rows={3}
-                          {...field}
-                          value={field.value || ""}
-                          className="rounded-xl text-sm resize-none"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="pt-2">
-                  <Button
-                    type="submit"
-                    disabled={applyMutation.isPending}
-                    className="w-full h-11 rounded-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/25"
-                  >
-                    {applyMutation.isPending ? (
-                      <span>Transmitting Application...</span>
-                    ) : (
-                      <span className="flex items-center justify-center gap-2">
-                        <span>Submit Job Application</span>
-                        <Send className="w-4 h-4" />
-                      </span>
-                    )}
-                  </Button>
-                </div>
-
-              </form>
-            </Form>
-          )}
-
         </DialogContent>
       </Dialog>
 
