@@ -64,7 +64,8 @@ import { FaWhatsapp } from "react-icons/fa";
  * Official Google Form URL for VY NextGen Technologies Job Vacancies.
  * Can be updated anytime when a new Google Form is created.
  */
-export const GOOGLE_FORM_CAREERS_URL = "https://forms.gle/skWDWMTWipZjRf8U6";
+export const GOOGLE_FORM_CAREERS_URL = "https://docs.google.com/forms/d/e/1FAIpQLScfJHdU2Ea2BZCnXHRXrR89hz8vs0h5HhGV_wforZRAbUSISg/viewform";
+
 
 export interface JobListing {
   id: string;

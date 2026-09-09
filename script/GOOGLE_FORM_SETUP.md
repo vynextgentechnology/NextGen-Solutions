@@ -41,12 +41,14 @@ This repository includes an automated Google Apps Script that automatically crea
 
 ---
 
-## 🔗 Connect to the Careers Page
-Once you have your form link, you can customize `GOOGLE_FORM_CAREERS_URL` at the top of:
-[`client/src/pages/Careers.tsx`](file:///c:/Users/LOQ/Downloads/NextGen-Solutions/NextGen-Solutions/client/src/pages/Careers.tsx)
+## 🔗 Active Careers Google Form
+The website is currently connected to the live Google Form:
+[https://docs.google.com/forms/d/e/1FAIpQLScfJHdU2Ea2BZCnXHRXrR89hz8vs0h5HhGV_wforZRAbUSISg/viewform](https://docs.google.com/forms/d/e/1FAIpQLScfJHdU2Ea2BZCnXHRXrR89hz8vs0h5HhGV_wforZRAbUSISg/viewform)
 
+Configured at the top of [`client/src/pages/Careers.tsx`](file:///c:/Users/LOQ/Downloads/NextGen-Solutions/NextGen-Solutions/client/src/pages/Careers.tsx):
 ```tsx
-export const GOOGLE_FORM_CAREERS_URL = "YOUR_NEW_GOOGLE_FORM_LINK_HERE";
+export const GOOGLE_FORM_CAREERS_URL = "https://docs.google.com/forms/d/e/1FAIpQLScfJHdU2Ea2BZCnXHRXrR89hz8vs0h5HhGV_wforZRAbUSISg/viewform";
 ```
 
-All "Official Google Form" buttons across the website (Hero section, Job cards, Application modal, Talent network banner) will immediately direct candidates to your live Google Form!
+All "Official Google Form" buttons across the website (Hero section, Job cards, Application modal, Talent network banner) immediately direct candidates to this live form!
+
