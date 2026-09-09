@@ -405,9 +405,9 @@ export default function Careers() {
       <Navigation />
 
       {/* ========================================================================= */}
-      {/* HERO SECTION */}
+      {/* HERO SECTION (Starting Itself with Single Google Form) */}
       {/* ========================================================================= */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-br from-slate-950 via-[#041d57] to-slate-950 text-white overflow-hidden">
+      <section id="top" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-br from-slate-950 via-[#041d57] to-slate-950 text-white overflow-hidden">
         {/* Ambient Glows */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none" />
@@ -459,36 +459,45 @@ export default function Careers() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed"
             >
-              Join an energetic team of software architects, creative designers, and tech leaders in Karur, Tamil Nadu. Work on real-world web apps, billing engines, and high-impact digital solutions.
+              Join an energetic team of software architects, creative designers, and tech leaders in Karur, Tamil Nadu. Explore the open roles below and apply through our official Google Form.
             </motion.p>
 
-            {/* CTAs */}
+            {/* Starting Google Form CTA (The Only One) */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center gap-4 pt-4"
+              className="pt-4 flex flex-col items-center justify-center space-y-4"
             >
-              <a href="#vacancies">
-                <Button className="rounded-full px-7 h-12 text-sm sm:text-base font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 transition-all hover:-translate-y-0.5">
-                  <span>Explore Open Positions</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </a>
-
-              <a
-                href={GOOGLE_FORM_CAREERS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant="outline"
-                  className="rounded-full px-7 h-12 text-sm sm:text-base font-bold border-cyan-500/50 bg-cyan-950/60 text-cyan-200 hover:bg-cyan-900/80 hover:text-white backdrop-blur-sm shadow-lg shadow-cyan-950/50 transition-all hover:-translate-y-0.5"
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href={GOOGLE_FORM_CAREERS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span>Apply via Google Form</span>
-                  <ExternalLink className="w-4 h-4 ml-2 text-cyan-400" />
-                </Button>
-              </a>
+                  <Button
+                    className="rounded-full px-8 h-13 py-3.5 text-base font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 hover:from-blue-600 hover:via-cyan-600 hover:to-indigo-600 text-white shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all hover:scale-105"
+                  >
+                    <span>Apply via Official Google Form</span>
+                    <ExternalLink className="w-4 h-4 ml-2.5" />
+                  </Button>
+                </a>
+
+                <a href="#vacancies">
+                  <Button
+                    variant="outline"
+                    className="rounded-full px-7 h-13 py-3.5 text-base font-semibold border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm transition-all"
+                  >
+                    <span>View Available Jobs Below</span>
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </a>
+              </div>
+
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs text-blue-200">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <span>Single official application form for all vacancies — select your role inside the form.</span>
+              </div>
             </motion.div>
 
             {/* Highlights Bar */}
@@ -571,13 +580,13 @@ export default function Careers() {
           {/* Section Header */}
           <div className="max-w-3xl mx-auto text-center mb-12 space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/70 px-3 py-1 rounded-full border border-blue-200">
-              Active Openings
+              Active Vacancies
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Explore Our Open Vacancies
+              What Jobs Are Available
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
-              Discover your next career leap. Search across departments, find your ideal fit, and apply directly through our official Google Form.
+              Explore our current open positions across Engineering, Design, POS & Billing, and Sales. To apply, submit your profile via the official Google Form at the top.
             </p>
           </div>
 
@@ -685,14 +694,10 @@ export default function Careers() {
                   >
                     Reset All Filters
                   </Button>
-                  <a
-                    href={GOOGLE_FORM_CAREERS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href="#top">
                     <Button className="rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md">
-                      <span>Apply via Google Form</span>
-                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
+                      <span>Apply via Top Google Form</span>
+                      <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                     </Button>
                   </a>
                 </div>
@@ -766,29 +771,16 @@ export default function Careers() {
                       </div>
                     </div>
 
-                    {/* Right: Actions */}
-                    <div className="flex sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-2.5 shrink-0 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+                    {/* Right: View Role Details Action */}
+                    <div className="flex items-center shrink-0 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-100">
                       <Button
                         variant="outline"
                         onClick={() => setActiveJobDetails(job)}
-                        className="flex-1 sm:flex-none rounded-xl h-11 px-4 text-xs font-bold border-slate-200 hover:bg-slate-100 text-slate-700"
+                        className="w-full sm:w-auto rounded-xl h-11 px-5 text-xs font-bold border-blue-200 text-blue-700 bg-blue-50/50 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all"
                       >
-                        View Details
+                        <span>View Role Details</span>
+                        <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                       </Button>
-                      
-                      <a
-                        href={GOOGLE_FORM_CAREERS_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 sm:flex-none"
-                      >
-                        <Button
-                          className="w-full sm:w-auto rounded-xl h-11 px-5 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition-all hover:-translate-y-0.5"
-                        >
-                          <span>Apply via Google Form</span>
-                          <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
-                        </Button>
-                      </a>
                     </div>
 
                   </div>
@@ -814,16 +806,12 @@ export default function Careers() {
               </div>
 
               <div className="flex flex-wrap items-center gap-3 shrink-0">
-                <a
-                  href={GOOGLE_FORM_CAREERS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="#top">
                   <Button
                     className="rounded-full px-7 h-11 text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 shadow-lg"
                   >
-                    <span>Open Google Form</span>
-                    <ExternalLink className="w-4 h-4 ml-2" />
+                    <span>Apply via Top Google Form</span>
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </a>
                 <a
@@ -1024,10 +1012,10 @@ export default function Careers() {
                 </ul>
               </div>
 
-              {/* Modal Footer CTA */}
+              {/* Modal Footer */}
               <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="text-xs text-slate-500">
-                  <span>Questions? Call HR: </span>
+                  <span>To apply, use the official Google Form at the top • Questions? Call HR: </span>
                   <a href="tel:+918754020556" className="font-bold text-blue-600 hover:underline">
                     +91 87540 20556
                   </a>
@@ -1036,23 +1024,10 @@ export default function Careers() {
                   <Button
                     variant="outline"
                     onClick={() => setActiveJobDetails(null)}
-                    className="flex-1 sm:flex-none rounded-xl text-xs font-bold"
+                    className="w-full sm:w-auto rounded-xl text-xs font-bold px-6"
                   >
                     Close
                   </Button>
-                  <a
-                    href={GOOGLE_FORM_CAREERS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 sm:flex-none"
-                  >
-                    <Button
-                      className="w-full sm:w-auto rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md"
-                    >
-                      <span>Apply via Google Form</span>
-                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
-                    </Button>
-                  </a>
                 </div>
               </div>
 
