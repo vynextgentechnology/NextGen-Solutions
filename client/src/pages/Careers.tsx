@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Navigation } from "@/components/Navigation";
+import { HeroTypewriter } from "@/components/HeroTypewriter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -407,7 +408,7 @@ export default function Careers() {
       {/* ========================================================================= */}
       {/* HERO SECTION (Starting Itself with Single Google Form) */}
       {/* ========================================================================= */}
-      <section id="top" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-br from-slate-950 via-[#041d57] to-slate-950 text-white overflow-hidden">
+      <section id="top" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-br from-[#031c54] via-[#08368c] to-[#0e4cb8] text-white overflow-hidden">
         {/* Ambient Glows */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none" />
@@ -430,7 +431,7 @@ export default function Careers() {
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs sm:text-sm font-semibold backdrop-blur-md shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-pill text-blue-200 text-xs sm:text-sm font-semibold shadow-lg shadow-blue-500/10"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -447,20 +448,22 @@ export default function Careers() {
               className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15]"
             >
               Build the Future of Software with{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-sky-200 to-white">
                 VY NextGen Technologies
               </span>
             </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
+            {/* Subtitle - STRICTLY ONE LINE INTRODUCTION WITH TYPING ANIMATION */}
+            <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed"
+              className="text-center flex justify-center overflow-hidden"
             >
-              Join an energetic team of software architects, creative designers, and tech leaders in Karur, Tamil Nadu. Explore the open roles below and apply through our official Google Form.
-            </motion.p>
+              <p className="text-sm sm:text-base md:text-lg text-blue-100 font-semibold px-4 max-w-3xl leading-normal sm:whitespace-nowrap">
+                <HeroTypewriter text="Join our engineering team in Karur building high-impact software, web apps, and enterprise platforms." />
+              </p>
+            </motion.div>
 
             {/* Starting Google Form CTA (The Only One) */}
             <motion.div

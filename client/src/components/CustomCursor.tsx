@@ -78,13 +78,13 @@ export function CustomCursor() {
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-500"
         style={{
           opacity: isVisible ? 1 : 0,
-          background: `radial-gradient(650px circle at ${spotlightX}px ${spotlightY}px, rgba(6, 182, 212, 0.06), rgba(37, 99, 235, 0.03) 40%, transparent 80%)`,
+          background: `radial-gradient(650px circle at ${spotlightX}px ${spotlightY}px, rgba(37, 99, 235, 0.08), rgba(59, 130, 246, 0.03) 40%, transparent 80%)`,
         }}
       />
 
       {/* 2. Fluid Trailing Outer Ring */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-50 rounded-full border border-cyan-400/50 mix-blend-screen"
+        className="pointer-events-none fixed top-0 left-0 z-50 rounded-full border border-blue-500/60 mix-blend-screen"
         style={{
           x: smoothX,
           y: smoothY,
@@ -95,18 +95,18 @@ export function CustomCursor() {
           width: isHovered ? 48 : isClicked ? 24 : 32,
           height: isHovered ? 48 : isClicked ? 24 : 32,
           backgroundColor: isHovered
-            ? "rgba(6, 182, 212, 0.15)"
+            ? "rgba(37, 99, 235, 0.18)"
             : isClicked
-            ? "rgba(37, 99, 235, 0.25)"
-            : "rgba(6, 182, 212, 0.04)",
+            ? "rgba(29, 78, 216, 0.3)"
+            : "rgba(37, 99, 235, 0.05)",
           borderColor: isHovered
-            ? "rgba(34, 211, 238, 0.9)"
+            ? "rgba(59, 130, 246, 0.95)"
             : isClicked
-            ? "rgba(96, 165, 250, 0.9)"
-            : "rgba(6, 182, 212, 0.4)",
+            ? "rgba(147, 197, 253, 0.95)"
+            : "rgba(37, 99, 235, 0.5)",
           boxShadow: isHovered
-            ? "0 0 20px rgba(6, 182, 212, 0.5), inset 0 0 10px rgba(6, 182, 212, 0.3)"
-            : "0 0 10px rgba(6, 182, 212, 0.2)",
+            ? "0 0 20px rgba(37, 99, 235, 0.6), inset 0 0 10px rgba(59, 130, 246, 0.4)"
+            : "0 0 10px rgba(37, 99, 235, 0.25)",
           opacity: isVisible ? 1 : 0,
         }}
         transition={{
@@ -118,7 +118,7 @@ export function CustomCursor() {
 
       {/* 3. Center Glowing Dot */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-50 rounded-full bg-cyan-300 shadow-[0_0_10px_#22d3ee]"
+        className="pointer-events-none fixed top-0 left-0 z-50 rounded-full bg-white shadow-[0_0_12px_#3b82f6]"
         style={{
           x: mouseX,
           y: mouseY,

@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
+import { HeroTypewriter } from "@/components/HeroTypewriter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -142,7 +143,7 @@ export default function WebDevelopment() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-br from-[#031c54] via-[#08368c] to-[#0e4cb8] text-white overflow-hidden">
         <div className="absolute inset-0 tech-grid-pattern-dark opacity-25" />
         <div className="absolute -top-40 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[130px]" />
         
@@ -152,19 +153,22 @@ export default function WebDevelopment() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-pill text-blue-200 text-xs font-bold uppercase tracking-wider mb-6 shadow-lg shadow-blue-500/15">
               <Sparkles className="w-3.5 h-3.5" />
               Full-Stack Web & Mobile Engineering
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6 text-white">
               <span className="text-white">Build Your High-Performance</span>{" "}
-              <span className="text-gradient-cyan">Website & App</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-sky-200 to-white">Website & App</span>
             </h1>
 
-            <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-2xl mx-auto">
-              We design and develop custom websites, web portals, and mobile applications engineered for high conversion, lightning-fast speeds, and flawless mobile experiences.
-            </p>
+            {/* STRICTLY ONE LINE INTRODUCTION WITH TYPING ANIMATION */}
+            <div className="mb-8 text-center flex justify-center overflow-hidden">
+              <p className="text-sm sm:text-base md:text-lg text-blue-100 font-semibold px-4 max-w-3xl leading-normal sm:whitespace-nowrap">
+                <HeroTypewriter text="Custom high-performance websites, progressive web applications, and intuitive mobile solutions." />
+              </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/enquiry">

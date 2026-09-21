@@ -81,6 +81,83 @@
     box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
   }
 
+  /* Liquid Glass Effects */
+  .liquid-glass {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 255, 255, 0.62) 50%,
+      rgba(239, 246, 255, 0.75) 100%
+    );
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 
+      inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.98),
+      inset 0 -1.5px 2px 0 rgba(37, 99, 235, 0.05),
+      0 12px 35px -8px rgba(30, 58, 138, 0.12),
+      0 2px 10px 0 rgba(37, 99, 235, 0.08);
+  }
+
+  .liquid-glass-header {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05);
+  }
+
+  /* Refined Enterprise Glass Lens */
+  .liquid-glass-lens {
+    position: relative;
+    background: rgba(241, 245, 249, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(203, 213, 225, 0.8);
+    box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.08);
+  }
+
+  /* Sleek Cursor Droplet Aura */
+  .liquid-cursor-aura {
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.08) 0%,
+      rgba(59, 130, 246, 0.02) 50%,
+      transparent 80%
+    );
+    pointer-events: none;
+  }
+
+  .liquid-glass-dark {
+    background: linear-gradient(
+      135deg,
+      rgba(4, 29, 87, 0.85) 0%,
+      rgba(15, 45, 115, 0.75) 50%,
+      rgba(30, 64, 175, 0.65) 100%
+    );
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 
+      inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.3),
+      0 18px 45px -8px rgba(4, 29, 87, 0.5),
+      0 0 30px rgba(37, 99, 235, 0.25);
+  }
+
+  .liquid-glass-pill {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.12) 100%
+    );
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  }
+
   .tech-grid-pattern {
     background-size: 40px 40px;
     background-image: 
@@ -103,26 +180,244 @@
     box-shadow: 0 0 50px -10px rgba(6, 182, 212, 0.25);
   }
 
-  /* Zyvex-Inspired Animated Effects */
-  .border-lightning {
-    border: 2px solid rgba(6, 182, 212, 0.5);
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 15px rgba(37, 99, 235, 0.15);
-    transition: all 0.3s ease;
-  }
-  .border-lightning:hover {
-    border-color: rgba(59, 130, 246, 0.8);
-    box-shadow: 0 0 30px rgba(6, 182, 212, 0.5), inset 0 0 25px rgba(59, 130, 246, 0.3);
-  }
-
-  .lightning-card {
+  /* Zyvex-Inspired Blue & White Showcase Effects */
+  .leader-full-showcase {
+    background: linear-gradient(135deg, rgba(4, 29, 87, 0.96) 0%, rgba(8, 48, 125, 0.92) 50%, rgba(15, 75, 184, 0.88) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(96, 165, 250, 0.45);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     position: relative;
-    border: 1px solid rgba(6, 182, 212, 0.25);
-    background: rgba(15, 23, 42, 0.85);
+    overflow: visible;
+    box-shadow: 0 20px 60px -15px rgba(4, 29, 87, 0.6), inset 0 1.5px 2px rgba(255, 255, 255, 0.35);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .lightning-card:hover {
-    border-color: rgba(6, 182, 212, 0.7);
-    box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.35), 0 0 15px rgba(59, 130, 246, 0.2);
+  @media (min-width: 1024px) {
+    .leader-full-showcase {
+      flex-direction: row;
+      min-height: 520px;
+    }
+    .leader-full-showcase.reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .border-lightning {
+    position: relative;
+    border-radius: 24px;
+    border: 2px solid rgba(96, 165, 250, 0.75);
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.45), inset 0 0 15px rgba(59, 130, 246, 0.2);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .border-lightning:hover {
+    border-color: #60a5fa;
+    box-shadow: 0 0 35px rgba(37, 99, 235, 0.7), 0 0 15px rgba(147, 197, 253, 0.4);
+  }
+
+  .lfs-image {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow: visible;
+    z-index: 20;
+  }
+  .lfs-content {
+    z-index: 10;
+    flex: 1.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem;
+  }
+  @media (max-width: 640px) {
+    .lfs-content {
+      padding: 1.5rem;
+    }
+  }
+
+  .typing-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .type-line {
+    color: #f1f5f9;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* DNA Timeline */
+  .video-dna-timeline {
+    width: 100%;
+    position: relative;
+    margin-top: 2rem;
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .video-dna-timeline::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, #60a5fa, #3b82f6, #1d4ed8, transparent);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+  }
+  .dna-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .dna-point {
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #60a5fa;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 12px #3b82f6;
+  }
+  .dna-card {
+    background: rgba(4, 29, 87, 0.6);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  .dna-card:hover {
+    border-color: rgba(96, 165, 250, 0.8);
+    transform: translateX(4px);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+  }
+  .dna-card h5 {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .dna-card p {
+    color: #93c5fd;
+    font-size: 0.82rem;
+    margin: 0;
+  }
+
+  /* Line Graph Timeline */
+  .line-graph-timeline {
+    width: 100%;
+    position: relative;
+    margin-top: 2rem;
+    padding-top: 1rem;
+  }
+  .lg-svg {
+    width: 100%;
+    height: 140px;
+    overflow: visible;
+  }
+  .lg-path {
+    fill: none;
+    stroke: #3b82f6;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8));
+  }
+  .lg-point {
+    fill: #ffffff;
+    stroke: #2563eb;
+    stroke-width: 3px;
+    transition: all 0.3s ease;
+  }
+  .lg-point:hover {
+    r: 8;
+    fill: #60a5fa;
+  }
+
+  /* Bar Graph Timeline */
+  .bar-graph-timeline {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    height: 140px;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+    width: 100%;
+  }
+  .bg-bar {
+    flex: 1;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(to top, rgba(37, 99, 235, 0.2), #3b82f6);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .bg-bar:hover {
+    background: linear-gradient(to top, rgba(37, 99, 235, 0.4), #60a5fa);
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
+  }
+  .bg-content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0.35rem;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #e2e8f0;
+  }
+
+  /* Histogram Timeline */
+  .histogram-timeline {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    height: 140px;
+    margin-top: 2rem;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+    width: 100%;
+  }
+  .hist-block {
+    flex: 1;
+    background: rgba(37, 99, 235, 0.35);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    transition: all 0.4s ease;
+  }
+  .hist-block:hover {
+    background: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+  }
+  .hist-content {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  .hist-content h5 {
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
   }
 }
 
@@ -150,3 +445,44 @@
   animation: pulseSlow 6s ease-in-out infinite;
 }
 
+/* Cyber Dossier & Terminal Scanline Effects */
+.terminal-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+@keyframes pagePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-page-pop {
+  animation: pagePopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes radarSweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-radar-sweep {
+  animation: radarSweep 4s linear infinite;
+}

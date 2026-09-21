@@ -50,7 +50,7 @@ export function SpotlightCard({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden ${className}`}
+      className={`relative ${className.includes("overflow-") ? "" : "overflow-hidden"} ${className}`}
       {...props}
     >
       {/* Dynamic Cursor Spotlight Radial Overlay */}

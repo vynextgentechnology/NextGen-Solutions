@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
+import { HeroTypewriter } from "@/components/HeroTypewriter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -176,10 +177,10 @@ export default function Internship() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-br from-[#031c54] via-[#08368c] to-[#0e4cb8] text-white overflow-hidden">
         <div className="absolute inset-0 tech-grid-pattern-dark opacity-25" />
-        <div className="absolute -top-32 right-10 w-96 h-96 bg-emerald-500/20 rounded-full blur-[130px]" />
-        <div className="absolute bottom-0 left-10 w-96 h-96 bg-blue-500/20 rounded-full blur-[120px]" />
+        <div className="absolute -top-32 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-[130px]" />
+        <div className="absolute bottom-0 left-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-[120px]" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
@@ -188,22 +189,24 @@ export default function Internship() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-6">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-pill text-blue-200 text-xs font-bold uppercase tracking-wider mb-6 shadow-lg shadow-blue-500/15">
+                <Sparkles className="w-3.5 h-3.5 text-blue-300" />
                 Admissions Open for Next Cohort
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6 text-white">
                 <span className="text-white">Launch Your Tech Career With Our</span>{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-sky-200 to-white">
                   1-Month IT Internship
                 </span>
               </h1>
 
-
-              <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-2xl mx-auto">
-                Gain real-world experience, build production full-stack apps, receive 1-on-1 industry mentorship, and earn recognized credentials.
-              </p>
+              {/* STRICTLY ONE LINE INTRODUCTION WITH TYPING ANIMATION */}
+              <div className="mb-8 text-center flex justify-center overflow-hidden">
+                <p className="text-sm sm:text-base md:text-lg text-blue-100 font-semibold px-4 max-w-3xl leading-normal sm:whitespace-nowrap">
+                  <HeroTypewriter text="Production full-stack software development, 1-on-1 industry mentorship, and recognized certification." />
+                </p>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#apply-now">
