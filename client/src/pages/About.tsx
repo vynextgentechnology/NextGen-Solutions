@@ -22,7 +22,7 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import { MouseScrollIndicator } from "@/components/ScrollAnimation";
 import { SpotlightCard } from "@/components/InteractiveSpotlightCard";
-import founderPhoto from "@assets/file_000000002dc871fa82cdcaab5c34b0ec_1776134862189.png";
+import founderPhoto from "@assets/valiullah_founder_chairman.png";
 import narendraPhoto from "@assets/narendra_prasath_ceo.png";
 import yuvanPhoto from "@assets/yuvan_shankar_raja_co_founder.png";
 import santhoshPhoto from "@assets/santhosh_managing_director.png";
