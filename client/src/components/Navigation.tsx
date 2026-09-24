@@ -8,7 +8,6 @@ import {
   Receipt, 
   Layers, 
   GraduationCap, 
-  Phone,
   ArrowRight,
   Sparkles,
   Briefcase
@@ -74,20 +73,20 @@ export function Navigation() {
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="h-10 sm:h-11 px-2 py-1 rounded-xl bg-[#041d57] border border-blue-900/30 shadow-md shadow-blue-950/20 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+        <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <div className="h-10 sm:h-11 px-2 py-1 rounded-xl bg-[#041d57] border border-blue-900/30 shadow-md shadow-blue-950/20 flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shrink-0">
             <img
               src={logoImg}
               alt="VY NextGen Technologies Logo"
               className="h-full w-auto object-contain"
             />
           </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
-              VY NextGen
+          <div className="flex flex-col whitespace-nowrap select-none">
+            <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900 leading-none whitespace-nowrap">
+              VY NEXTGEN
             </span>
-            <span className="text-[11px] font-bold text-blue-600 tracking-wider uppercase mt-0.5">
-              Technologies
+            <span className="text-[10px] sm:text-[11px] font-bold text-blue-600 tracking-wider uppercase mt-1 whitespace-nowrap">
+              TECHNOLOGIES
             </span>
           </div>
         </Link>
@@ -208,14 +207,6 @@ export function Navigation() {
 
         {/* Right Action CTAs */}
         <div className="hidden lg:flex items-center gap-3 xl:gap-4">
-          <a
-            href="tel:+918754020556"
-            className="hidden xl:flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-100"
-          >
-            <Phone className="w-4 h-4 text-blue-600" />
-            <span>+91 87540 20556</span>
-          </a>
-
           <Link href="/enquiry">
             <Button className="rounded-full px-4 xl:px-5 h-9 xl:h-10 text-xs xl:text-sm font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md shadow-blue-500/25 hover:shadow-blue-500/40 transition-all hover:-translate-y-0.5">
               <span>Enquire Now</span>
@@ -330,13 +321,6 @@ export function Navigation() {
 
 
               <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
-                <a
-                  href="tel:+918754020556"
-                  className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50 active:bg-slate-100"
-                >
-                  <Phone className="w-4 h-4 text-blue-600" />
-                  <span>Call: +91 87540 20556</span>
-                </a>
                 <Link href="/enquiry" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button className="w-full rounded-xl h-11 font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25">
                     Submit Project Enquiry
