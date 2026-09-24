@@ -12,14 +12,8 @@ export function FloatingWhatsApp() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, duration: 0.3 }}
-      className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center group"
+      className="fixed bottom-5 left-5 sm:bottom-6 sm:left-6 z-40 flex items-center group"
     >
-      {/* Tooltip on hover (desktop/laptop) */}
-      <div className="mr-3 hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 text-white text-xs font-medium shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none translate-x-2 group-hover:translate-x-0">
-        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        Chat on WhatsApp
-      </div>
-
       <a
         href={`https://wa.me/${phoneNumber}?text=${defaultMessage}`}
         target="_blank"
@@ -33,6 +27,12 @@ export function FloatingWhatsApp() {
         </span>
         <FaWhatsapp className="w-6 h-6 sm:w-8 sm:h-8" />
       </a>
+
+      {/* Tooltip on hover (desktop/laptop) - displayed to the right */}
+      <div className="ml-3 hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 text-white text-xs font-medium shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none -translate-x-2 group-hover:translate-x-0">
+        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Chat on WhatsApp
+      </div>
     </motion.div>
 
   );

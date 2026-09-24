@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { Chatbot } from "@/components/Chatbot";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgressBar, ScrollToTopButton } from "@/components/ScrollAnimation";
 import NotFound from "@/pages/not-found";
@@ -65,6 +66,7 @@ function App() {
           </main>
           <Footer />
           <FloatingWhatsApp />
+          <Chatbot />
           <ScrollToTopButton />
         </div>
         <Toaster />
