@@ -22,13 +22,13 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import { MouseScrollIndicator } from "@/components/ScrollAnimation";
 import { SpotlightCard } from "@/components/InteractiveSpotlightCard";
-import founderPhoto from "@assets/valiullah_founder_chairman.png";
-import narendraPhoto from "@assets/narendra_prasath_ceo.png";
-import yuvanPhoto from "@assets/yuvan_shankar_raja_co_founder.png";
-import santhoshPhoto from "@assets/santhosh_managing_director.png";
-import yeswanthPhoto from "@assets/yeswanth_director.png";
-import sriPrajithPhoto from "@assets/sri_prajith_cto_cfo.png";
-import logoImg from "@assets/vy_nextgen_logo.png";
+import founderPhoto from "@assets/valiullah_founder_chairman.webp";
+import narendraPhoto from "@assets/narendra_prasath_ceo.webp";
+import yuvanPhoto from "@assets/yuvan_shankar_raja_co_founder.webp";
+import santhoshPhoto from "@assets/santhosh_managing_director.webp";
+import yeswanthPhoto from "@assets/yeswanth_director.webp";
+import sriPrajithPhoto from "@assets/sri_prajith_cto_cfo.webp";
+import logoImg from "@assets/vy_nextgen_logo.webp";
 
 export interface ExecutiveLeader {
   name: string;
@@ -412,6 +412,8 @@ export default function About() {
                       <img
                         src={leader.photo}
                         alt={`${leader.name} - ${leader.role}`}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                       />
 

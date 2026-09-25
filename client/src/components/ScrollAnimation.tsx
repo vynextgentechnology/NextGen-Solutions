@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { ArrowUp } from "lucide-react";
+import { useIsPastHero } from "@/hooks/use-hero-passed";
 
 /**
  * Top horizontal scroll progress bar
@@ -30,6 +31,7 @@ export function ScrollProgressBar() {
  * Modern floating Back-to-Top button with circular scroll progress ring
  */
 export function ScrollToTopButton() {
+  const isPastHero = useIsPastHero();
   const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -39,13 +41,13 @@ export function ScrollToTopButton() {
       const total = document.documentElement.scrollHeight - window.innerHeight;
       const pct = total > 0 ? Math.min(100, Math.max(0, Math.round((current / total) * 100))) : 0;
       setProgress(pct);
-      setVisible(current > 280);
+      setVisible(current > 280 && isPastHero);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isPastHero]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -63,7 +65,7 @@ export function ScrollToTopButton() {
       }
       transition={{ duration: 0.3, ease: "easeOut" }}
       aria-label="Scroll back to top"
-      className="fixed bottom-24 right-6 z-40 p-2.5 rounded-full bg-slate-950/85 border border-cyan-500/40 text-cyan-300 shadow-[0_4px_20px_rgba(6,182,212,0.25)] backdrop-blur-xl hover:border-cyan-400 hover:text-white hover:shadow-[0_0_25px_rgba(6,182,212,0.5)] transition-all duration-300 group cursor-pointer"
+      className="fixed bottom-[calc(5.25rem+env(safe-area-inset-bottom,0px))] right-4 sm:bottom-24 sm:right-6 z-40 p-2 sm:p-2.5 rounded-full bg-slate-950/85 border border-cyan-500/40 text-cyan-300 shadow-[0_4px_20px_rgba(6,182,212,0.25)] backdrop-blur-xl hover:border-cyan-400 hover:text-white hover:shadow-[0_0_25px_rgba(6,182,212,0.5)] transition-all duration-300 group cursor-pointer"
     >
       {/* SVG Circular Progress Ring */}
       <svg className="w-10 h-10 -rotate-90" viewBox="0 0 36 36">

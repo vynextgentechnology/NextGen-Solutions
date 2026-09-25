@@ -22,8 +22,8 @@ export function CustomCursor() {
   const spotlightY = useSpring(mouseY, spotlightConfig);
 
   useEffect(() => {
-    // Only enable on devices with fine pointer (mouse / trackpad)
-    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    // Only enable on desktop devices with fine pointer (mouse / trackpad) and width >= 1024px
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches && window.innerWidth >= 1024;
     if (!isFinePointer) {
       setIsTouchDevice(true);
       return;

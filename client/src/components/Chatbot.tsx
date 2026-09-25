@@ -29,11 +29,13 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useIsPastHero } from "@/hooks/use-hero-passed";
 import {
   findBotResponse,
   getInitialWelcomeMessage,
   QUICK_SUGGESTIONS,
   type ChatAction,
+  type LeaderProfile,
 } from "@/lib/chatbotKnowledge";
 
 export interface ChatMessage {
@@ -44,6 +46,7 @@ export interface ChatMessage {
   showLeadForm?: boolean;
   isLeadSubmitted?: boolean;
   feedback?: "up" | "down" | null;
+  leaders?: LeaderProfile[];
   timestamp: string;
 }
 
@@ -81,6 +84,7 @@ function playChime(enabled: boolean) {
 }
 
 export function Chatbot() {
+  const isPastHero = useIsPastHero();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
@@ -251,6 +255,7 @@ export function Chatbot() {
         text: response.text,
         actions: response.actions,
         showLeadForm: response.showLeadForm,
+        leaders: response.leaders,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
@@ -454,6 +459,10 @@ _Sent directly via VY NextGen Website Assistant_`;
     }
   };
 
+  if (!isPastHero) {
+    return null;
+  }
+
   return (
     <>
       {/* 1. Welcoming Prompt Tooltip Bubble (When Closed) */}
@@ -504,7 +513,7 @@ _Sent directly via VY NextGen Website Assistant_`;
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.3 }}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center"
+        className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] right-4 sm:bottom-6 sm:right-6 z-50 flex items-center"
       >
         <button
           onClick={isOpen ? handleCloseChat : handleOpenChat}
@@ -545,7 +554,7 @@ _Sent directly via VY NextGen Website Assistant_`;
             transition={{ duration: 0.22, ease: "easeOut" }}
             style={{ transformOrigin: "bottom right" }}
             className={`fixed z-50 flex flex-col overflow-hidden bg-slate-950/98 backdrop-blur-2xl border border-cyan-500/30 text-slate-100 shadow-[0_20px_60px_-15px_rgba(4,29,87,0.9)] rounded-2xl sm:rounded-3xl
-              right-3 sm:right-6 bottom-[72px] sm:bottom-24
+              right-3 sm:right-6 bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] sm:bottom-24
               ${
                 isExpanded
                   ? "w-[calc(100vw-24px)] sm:w-[560px] max-w-[560px] h-[640px] max-h-[calc(100dvh-95px)] sm:max-h-[calc(100vh-130px)]"
@@ -698,6 +707,60 @@ _Sent directly via VY NextGen Website Assistant_`;
                       }`}
                     >
                       {renderFormattedText(msg.text)}
+
+                      {/* Rich Leader Profile Card(s) with Photo, Name & Details */}
+                      {msg.leaders && msg.leaders.length > 0 && (
+                        <div className="mt-3.5 space-y-3 w-full">
+                          {msg.leaders.map((leader) => (
+                            <div
+                              key={leader.id}
+                              className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-br from-slate-950/90 via-slate-900/95 to-blue-950/50 border border-cyan-500/40 shadow-xl shadow-cyan-950/30 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-3.5 text-center sm:text-left transition-all hover:border-cyan-400 group"
+                            >
+                              {/* Leader Photo with Glowing Border - Completely Unobstructed */}
+                              <div className="shrink-0">
+                                <img
+                                  src={leader.photo}
+                                  alt={leader.name}
+                                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-cyan-400/60 shadow-md shadow-cyan-500/30 group-hover:scale-105 transition-transform duration-200"
+                                />
+                              </div>
+
+                              {/* Leader Bio Details */}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
+                                  <h4 className="text-sm font-bold text-white tracking-tight">
+                                    {leader.name}
+                                  </h4>
+                                  <span className="px-2 py-0.5 rounded-full bg-blue-600/30 border border-blue-400/40 text-cyan-300 text-[10px] font-bold uppercase tracking-wider">
+                                    {leader.badge}
+                                  </span>
+                                </div>
+                                <span className="text-[11px] font-semibold text-cyan-400 block mt-0.5">
+                                  {leader.role}
+                                </span>
+                                <span className="text-[10px] text-slate-400 block mt-0.5">
+                                  {leader.department}
+                                </span>
+                                <p className="text-[11px] text-slate-300 leading-relaxed mt-1.5">
+                                  {leader.summary}
+                                </p>
+
+                                {/* Focus Area Tags */}
+                                <div className="flex flex-wrap gap-1 mt-2 justify-center sm:justify-start">
+                                  {leader.focus.map((f, i) => (
+                                    <span
+                                      key={i}
+                                      className="px-1.5 py-0.5 rounded-md bg-slate-800/90 border border-slate-700/60 text-[9px] font-medium text-cyan-300"
+                                    >
+                                      #{f}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
                       {/* Inline Lead Capture Form */}
                       {msg.showLeadForm && !msg.isLeadSubmitted && (

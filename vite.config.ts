@@ -30,6 +30,17 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    target: "es2020",
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "wouter"],
+          motion: ["framer-motion"],
+          icons: ["lucide-react", "react-icons"],
+        },
+      },
+    },
   },
   server: {
     fs: {

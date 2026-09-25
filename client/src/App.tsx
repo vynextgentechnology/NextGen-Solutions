@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -6,17 +6,32 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
-import { Chatbot } from "@/components/Chatbot";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgressBar, ScrollToTopButton } from "@/components/ScrollAnimation";
-import NotFound from "@/pages/not-found";
+
+// Critical landing page loaded directly for fastest Time to Interactive
 import Home from "@/pages/Home";
-import About from "@/pages/About";
-import WebDevelopment from "@/pages/WebDevelopment";
-import BillingSoftware from "@/pages/BillingSoftware";
-import Internship from "@/pages/Internship";
-import Enquiry from "@/pages/Enquiry";
-import Careers from "@/pages/Careers";
+
+// Secondary pages lazily loaded to minimize mobile bundle size and CPU parse time
+const About = lazy(() => import("@/pages/About"));
+const WebDevelopment = lazy(() => import("@/pages/WebDevelopment"));
+const BillingSoftware = lazy(() => import("@/pages/BillingSoftware"));
+const Internship = lazy(() => import("@/pages/Internship"));
+const Enquiry = lazy(() => import("@/pages/Enquiry"));
+const Careers = lazy(() => import("@/pages/Careers"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Heavy AI chatbot widget loaded lazily on demand
+const Chatbot = lazy(() => import("@/components/Chatbot").then(m => ({ default: m.Chatbot })));
+
+function PageLoadingFallback() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center bg-slate-950 text-cyan-400 gap-3">
+      <div className="w-10 h-10 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin" />
+      <span className="text-xs font-mono uppercase tracking-widest text-slate-400">Loading Experience...</span>
+    </div>
+  );
+}
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -35,24 +50,41 @@ function Router() {
   return (
     <>
       <ScrollToTop />
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/web-development" component={WebDevelopment} />
-        <Route path="/billing-software" component={BillingSoftware} />
-        <Route path="/internship" component={Internship} />
-        <Route path="/careers" component={Careers} />
-        <Route path="/jobs" component={Careers} />
-        <Route path="/vacancies" component={Careers} />
-        <Route path="/enquiry" component={Enquiry} />
-        <Route path="/order" component={Enquiry} />
-        <Route component={NotFound} />
-      </Switch>
+      <Suspense fallback={<PageLoadingFallback />}>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/web-development" component={WebDevelopment} />
+          <Route path="/billing-software" component={BillingSoftware} />
+          <Route path="/internship" component={Internship} />
+          <Route path="/careers" component={Careers} />
+          <Route path="/jobs" component={Careers} />
+          <Route path="/vacancies" component={Careers} />
+          <Route path="/enquiry" component={Enquiry} />
+          <Route path="/contact" component={Enquiry} />
+          <Route path="/order" component={Enquiry} />
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
     </>
   );
 }
 
-
+function MainContent() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-grow">
+        <Router />
+      </main>
+      <Footer />
+      <FloatingWhatsApp />
+      <Suspense fallback={null}>
+        <Chatbot />
+      </Suspense>
+      <ScrollToTopButton />
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -60,15 +92,7 @@ function App() {
       <TooltipProvider>
         <ScrollProgressBar />
         <CustomCursor />
-        <div className="flex flex-col min-h-screen">
-          <main className="flex-grow">
-            <Router />
-          </main>
-          <Footer />
-          <FloatingWhatsApp />
-          <Chatbot />
-          <ScrollToTopButton />
-        </div>
+        <MainContent />
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>

@@ -11,7 +11,7 @@ import {
   Facebook
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import logoImg from "@assets/vy_nextgen_logo.png";
+import logoImg from "@assets/vy_nextgen_logo.webp";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -165,9 +165,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="/#contact" className="hover:text-cyan-400 transition-colors">
+                <Link href="/contact" className="hover:text-cyan-400 transition-colors">
                   Contact & Consultation
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
