@@ -1,5 +1,7 @@
 import { useEffect, lazy, Suspense } from "react";
 import { Switch, Route, useLocation } from "wouter";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -33,13 +35,51 @@ function PageLoadingFallback() {
   );
 }
 
+function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    // Configure Lenis smooth scrolling with an exponential easing curve (like aventuradentalarts.com)
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.6,
+      infinite: false,
+    });
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    // Make lenis accessible globally for hero canvas synchronization
+    (window as any).__lenis = lenis;
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete (window as any).__lenis;
+    };
+  }, []);
+
+  return <>{children}</>;
+}
+
 function ScrollToTop() {
   const [location] = useLocation();
 
   useEffect(() => {
-    // If there is no hash in URL, scroll to top
+    // If there is no hash in URL, scroll to top smoothly
     if (!window.location.hash) {
-      window.scrollTo(0, 0);
+      if ((window as any).__lenis) {
+        (window as any).__lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
   }, [location]);
 
@@ -90,10 +130,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <ScrollProgressBar />
-        <CustomCursor />
-        <MainContent />
-        <Toaster />
+        <SmoothScrollProvider>
+          <ScrollProgressBar />
+          <CustomCursor />
+          <MainContent />
+          <Toaster />
+        </SmoothScrollProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
