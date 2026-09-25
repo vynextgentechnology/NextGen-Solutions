@@ -266,8 +266,14 @@ export function HeroScrollAnimation() {
 
       const startRemainingFrames = () => {
         if (isCancelled) return;
-        // Mobile loads every 2nd frame (150 total), Desktop loads every frame (300 total)
-        const frameStep = currentTier === "LOW" ? 2 : 1;
+        // Mobile loads every 4th frame (~75 total), Desktop loads every frame (300 total)
+        // NOTE: each decoded (uncompressed) bitmap costs width*height*4 bytes in RAM,
+        // not its JPEG file size. At the old 800x450 / every-2nd-frame setting that was
+        // ~150 frames x ~1.44MB = ~216MB of decoded bitmaps alive at once on mobile,
+        // which is what was causing the image cache to thrash and stutter on scroll.
+        // Frames are now saved at 640x360, so 75 frames x ~0.92MB = ~69MB - well within
+        // what mobile Safari/Chrome will keep decoded without evicting and re-decoding.
+        const frameStep = currentTier === "LOW" ? 4 : 1;
         const remaining: number[] = [];
         for (let i = 1; i < TOTAL_FRAMES; i += frameStep) {
           if (!keyframes.includes(i)) {
