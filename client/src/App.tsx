@@ -37,7 +37,16 @@ function PageLoadingFallback() {
 
 function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Configure Lenis smooth scrolling with an exponential easing curve (like aventuradentalarts.com)
+    // Detect touch devices (iOS & Android)
+    const isTouch = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
+    // On mobile, native touch momentum scrolling is 120Hz hardware-accelerated by the OS compositor.
+    // Hijacking touch events on mobile causes WebKit/Blink to stutter and hang.
+    // On desktop, Lenis delivers the butter-smooth mousewheel glide seen on aventuradentalarts.com.
+    if (isTouch) {
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -45,7 +54,6 @@ function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.6,
       infinite: false,
     });
 
